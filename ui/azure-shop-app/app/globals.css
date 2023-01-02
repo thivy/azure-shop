@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tighter;
+  }
+
+  .display-1 {
+    @apply mb-9 text-8xl leading-[96px] font-bold;
+  }
+  .display-2 {
+    @apply mb-9 text-[88px] leading-[88px] font-bold;
+  }
+  .display-3 {
+    @apply mb-6 text-7xl leading-[72px] font-bold;
+  }
+  .display-4 {
+    @apply mb-6 text-[54px] leading-[54px] font-bold;
+  }
+
+  h1 {
+    @apply mb-6 text-[40px] leading-tight font-semibold;
+  }
+
+  h2 {
+    @apply mb-6 text-[32px] leading-tight font-semibold;
+  }
+
+  h3 {
+    @apply mb-6 text-[28px] leading-tight font-semibold;
+  }
+
+  h4 {
+    @apply mb-4 text-[24px] leading-tight font-semibold;
+  }
+
+  h5 {
+    @apply mb-3 text-[20px] leading-tight font-semibold;
+  }
+
+  h6 {
+    @apply mb-3 text-[16px] leading-tight font-semibold;
+  }
+}
