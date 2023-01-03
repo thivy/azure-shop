@@ -1,14 +1,9 @@
-import { Header } from "@/components/header";
 import { Panel } from "@/components/panel";
 import { Section } from "@/components/section";
-import { Inter } from "@next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <div className={`max-w-7xl mx-auto px-3 ${inter.className}`}>
-      <Header />
+    <>
       <Section>
         <h5 className="bg-gradient-to-r from-orange-500 to-purple-500 inline-block bg-clip-text text-transparent mb-6">
           Azure Container Apps
@@ -35,6 +30,6 @@ export default function Home() {
           <Panel className="" />
         </div>
       </Section>
-    </div>
+    </>
   );
 }
