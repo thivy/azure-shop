@@ -8,7 +8,12 @@ export const Header = () => {
     <div className="py-8 flex justify-between">
       <div className="flex gap-3">
         <HeaderButton href="/" icon="/azure.svg" name="Home" />
-        <HeaderButton href="/shop" icon="/store.svg" name="Shop" />
+        <HeaderButton
+          href="/shop"
+          icon="/store.svg"
+          name="Shop"
+          refresh={true}
+        />
       </div>
 
       <CartButton href="/cart" icon="./shopping-bag.svg" name="" />

@@ -1,22 +1,23 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { FC } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useShopContext } from "app/shop/shop-context";
+import { FC } from "react";
 
 interface IProp {
   href: string;
   icon: string;
   name: string;
   children?: React.ReactNode;
+  refresh?: boolean;
 }
 
 export const HeaderButton: FC<IProp> = (props: IProp) => {
   const pathname = usePathname();
+
   const isSelected = pathname === props.href;
-  const tt = useShopContext();
+
   return (
     <Link
       className={`py-2 px-4 rounded-full flex items-center gap-x-3 hover:bg-slate-800/90 transition  ${

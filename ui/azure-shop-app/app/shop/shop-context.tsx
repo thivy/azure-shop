@@ -1,7 +1,7 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
-import { IProduct } from "./product.models";
+import React from "react";
+import { IProduct } from "./product/product-models";
 
 interface IcartItem {
   prodct: IProduct;

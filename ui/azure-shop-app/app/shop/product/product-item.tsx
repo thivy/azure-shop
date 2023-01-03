@@ -1,8 +1,8 @@
 import { Panel } from "@/components/panel";
+import Image from "next/image";
 import { FC } from "react";
 import { AddToCartButton } from "./add-to-cart-button";
-import Image from "next/image";
-import { IProduct } from "./product.models";
+import { IProduct } from "./product-models";
 
 export const ProductItem: FC<IProduct> = (props) => {
   return (
