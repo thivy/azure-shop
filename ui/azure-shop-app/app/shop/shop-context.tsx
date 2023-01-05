@@ -3,7 +3,7 @@
 import React from "react";
 import { IProduct } from "./product/product-models";
 
-interface IcartItem {
+export interface IcartItem {
   prodct: IProduct;
   quantity: number;
 }
@@ -13,6 +13,7 @@ interface IShopContext {
   addToCart: (item: IcartItem) => void;
   removeFromCart: (item: IcartItem) => void;
   productCount: (productId: string) => number;
+  clearCart: () => void;
   counter: number;
 }
 
@@ -34,6 +35,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     }
 
     setCounter(counter + 1);
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+    setCounter(0);
   };
 
   const removeFromCart = (cartItem: IcartItem) => {
@@ -64,7 +70,14 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ShopContext.Provider
-      value={{ cart, addToCart, counter, removeFromCart, productCount }}
+      value={{
+        cart,
+        addToCart,
+        counter,
+        removeFromCart,
+        productCount,
+        clearCart,
+      }}
     >
       {children}
     </ShopContext.Provider>

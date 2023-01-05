@@ -8,15 +8,14 @@ const inter = Inter({ subsets: ["latin"] });
 
 interface IProp {
   children: React.ReactNode;
-  session: any;
 }
 
-export default function RootLayout({ children, session }: IProp) {
+export default function RootLayout({ children }: IProp) {
   return (
     <html lang="en">
       <head />
       <body className="bg-slate-900 text-slate-100">
-        <Providers session={session}>
+        <Providers>
           <ShopProvider>
             <div className={`max-w-7xl mx-auto px-3 ${inter.className}`}>
               <Header />

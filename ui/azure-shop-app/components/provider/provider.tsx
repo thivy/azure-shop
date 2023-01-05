@@ -2,18 +2,13 @@
 
 import { SessionProvider } from "next-auth/react";
 
-export const Providers = ({
-  children,
-  session,
-}: {
-  children: React.ReactNode;
-  session: any;
-}) => {
+export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <SessionProvider session={session}>
-        {/* <button onClick={() => signIn()}>sing</button> */}
-
+      <SessionProvider>
+        {/* <button onClick={() => signIn("azure-ad-b2c")}>sing</button>
+        <button onClick={() => signOut()}>signOut</button>
+        <We /> */}
         {children}
       </SessionProvider>
     </>

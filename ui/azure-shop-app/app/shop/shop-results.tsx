@@ -8,7 +8,8 @@ async function getData(): Promise<IProductResponse | null> {
       return null;
     }
     return res.json();
-  } catch {
+  } catch (e) {
+    console.log("Failed to FETCH", e);
     return null;
   }
 }
