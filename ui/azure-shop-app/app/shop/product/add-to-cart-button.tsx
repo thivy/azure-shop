@@ -1,8 +1,8 @@
 "use client";
 
 import { FC } from "react";
+import { IProduct } from "../services/product-service";
 import { useShopContext } from "../shop-context";
-import { IProduct } from "./product-models";
 
 interface IProp {
   product: IProduct;
