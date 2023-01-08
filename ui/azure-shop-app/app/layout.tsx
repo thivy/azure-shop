@@ -17,7 +17,9 @@ export default function RootLayout({ children }: IProp) {
       <body className="bg-slate-900 text-slate-100">
         <Providers>
           <ShopProvider>
-            <div className={`max-w-7xl mx-auto px-3 ${inter.className}`}>
+            <div
+              className={`max-w-7xl min-w-[320px] mx-auto px-3 ${inter.className}`}
+            >
               <Header />
               {children}
             </div>

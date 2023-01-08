@@ -14,9 +14,9 @@ export default function Home() {
         </h3>
       </Section>
       <Section>
-        <div className="grid grid-cols-3 grid-flow-row gap-6 sm:grid-cols-1">
+        <div className="grid lg:grid-cols-3 grid-flow-row gap-6 md:grid-cols-2 sm:grid-cols-1">
           <Panel className="" />
-          <Panel className="col-span-2" />
+          <Panel className="lg:col-span-2" />
         </div>
       </Section>
       <Section>
@@ -24,7 +24,7 @@ export default function Home() {
         <h3 className="display-3">Build modular applications</h3>
       </Section>
       <Section>
-        <div className="grid grid-cols-3 grid-flow-row gap-6">
+        <div className="grid lg:grid-cols-3 grid-flow-row gap-6 md:grid-cols-2 sm:grid-cols-1">
           <Panel className="" />
           <Panel className="" />
           <Panel className="" />

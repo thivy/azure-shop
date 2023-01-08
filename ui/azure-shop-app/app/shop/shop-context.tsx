@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { IProduct } from "./product/product-models";
+import { IProduct } from "./services/product-service";
 
 export interface IcartItem {
   prodct: IProduct;

@@ -6,17 +6,14 @@ import PocketBase from "pocketbase";
 
 const daprHost = "127.0.0.1";
 
-export const addToTopic = async (item: IcartItem) => {
+export const addToTopic = async (item: Array<IcartItem>) => {
   const client = new DaprClient(
     daprHost,
     process.env.DAPR_HTTP_PORT,
     CommunicationProtocolEnum.HTTP
   );
 
-  const result = {
-    productid: item.prodct.id,
-  };
-  await client.pubsub.publish("servicebus-pubsub", "order", result);
+  await client.pubsub.publish("servicebus-pubsub", "order", item);
 };
 
 const addToOrder = async (cart: Array<IcartItem>) => {
@@ -29,8 +26,9 @@ const addToOrder = async (cart: Array<IcartItem>) => {
       quantity: item.quantity,
       productname: item.prodct.name,
     });
-    await addToTopic(item);
   }
+
+  await addToTopic(cart);
 };
 
 export default async function handler(

@@ -1,22 +1,19 @@
 "use client";
 
 import { Panel } from "@/components/panel";
-import { IcartItem, useShopContext } from "app/shop/shop-context";
+import { useShopContext } from "app/shop/shop-context";
 import { useRouter } from "next/navigation";
-
-const addToCart = async (cartItem: Array<IcartItem>) => {
-  await fetch("/api/order", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(cartItem),
-  });
-};
+import { placeOrder } from "./services/order-service";
 
 export const CartItems = () => {
   const context = useShopContext();
   const router = useRouter();
+
+  const placeAndCompleteOrder = async () => {
+    await placeOrder(context.cart);
+    context.clearCart();
+    router.push("/");
+  };
 
   return (
     <div className="flex flex-1 flex-col gap-4">
@@ -33,11 +30,7 @@ export const CartItems = () => {
       <div className="py-4">
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={async () => {
-            await addToCart(context.cart);
-            context.clearCart();
-            router.push("/");
-          }}
+          onClick={() => placeAndCompleteOrder()}
         >
           Place Order
         </button>
