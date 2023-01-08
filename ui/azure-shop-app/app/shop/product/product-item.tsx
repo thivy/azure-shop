@@ -8,10 +8,10 @@ export const ProductItem: FC<IProduct> = (props) => {
   return (
     <Panel className="justify-center flex flex-col gap-4">
       <Image
-        className="self-center"
+        className="self-center "
         src={`${process.env.CMS_API}/api/files/${props.collectionId}/${props.id}/${props.image}`}
         alt={props.name}
-        width={150}
+        width={350}
         height={30}
       />
 

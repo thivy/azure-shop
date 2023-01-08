@@ -14,7 +14,7 @@ export default function Home() {
         </h3>
       </Section>
       <Section>
-        <div className="grid grid-cols-3 grid-flow-row gap-6">
+        <div className="grid grid-cols-3 grid-flow-row gap-6 sm:grid-cols-1">
           <Panel className="" />
           <Panel className="col-span-2" />
         </div>
