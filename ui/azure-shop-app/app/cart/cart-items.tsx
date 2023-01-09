@@ -3,10 +3,12 @@
 import { Panel } from "@/components/panel";
 import { useShopContext } from "app/shop/shop-context";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { placeOrder } from "./services/order-service";
 
-export const CartItems = () => {
+interface IProp {}
+
+export const CartItems: FC<IProp> = (props) => {
   const context = useShopContext();
   const router = useRouter();
   const [isFetching, setIsFetching] = useState(false);
