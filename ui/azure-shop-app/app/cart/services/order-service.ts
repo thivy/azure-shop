@@ -1,11 +1,11 @@
-import { IcartItem } from "app/shop/shop-context";
+import { IOrder } from "app/shop/shop-context";
 
-export const placeOrder = async (cartItem: Array<IcartItem>) => {
+export const placeOrder = async (order: IOrder) => {
   await fetch("/api/order", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(cartItem),
+    body: JSON.stringify(order),
   });
 };

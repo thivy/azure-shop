@@ -13,12 +13,14 @@ export const CartItems: FC<IProp> = (props) => {
   const router = useRouter();
   const [isFetching, setIsFetching] = useState(false);
 
+  const [email, setEmail] = useState<string>("");
+
   const placeAndCompleteOrder = async () => {
-    if (isFetching) return;
+    if (isFetching || email.length === 0) return;
 
     try {
       setIsFetching(true);
-      await placeOrder(context.cart);
+      await placeOrder({ cart: context.cart, email: email });
       context.clearCart();
       router.push("/");
     } catch (e) {
@@ -29,15 +31,21 @@ export const CartItems: FC<IProp> = (props) => {
   };
 
   const totalCost = (price: number, quantity: number) => {
-    // rounde to 2 decimal places and multiply by quantity to get total cost
     const p = price * quantity;
-
     const returnPrice = Math.round(p * 100) / 100;
     return returnPrice;
   };
 
   return (
     <div className="flex flex-1 flex-col gap-4">
+      <Panel>
+        <input
+          type={"text"}
+          placeholder={"Email"}
+          onChange={(e) => setEmail(e.target.value)}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </Panel>
       {context.cart.map((item, index) => (
         <Panel
           className="grid grid-cols-12 grid-flow-col gap-4 flex-1"

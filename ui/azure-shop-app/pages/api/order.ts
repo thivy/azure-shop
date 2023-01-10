@@ -1,12 +1,12 @@
 import { DaprClient } from "@dapr/dapr";
 import CommunicationProtocolEnum from "@dapr/dapr/enum/CommunicationProtocol.enum";
-import { IcartItem } from "app/shop/shop-context";
+import { IOrder } from "app/shop/shop-context";
 import { NextApiRequest, NextApiResponse } from "next";
 import PocketBase from "pocketbase";
 
 const daprHost = "127.0.0.1";
 
-export const addToTopic = async (item: Array<IcartItem>) => {
+export const addToTopic = async (item: IOrder) => {
   const client = new DaprClient(
     daprHost,
     process.env.DAPR_HTTP_PORT,
@@ -16,11 +16,11 @@ export const addToTopic = async (item: Array<IcartItem>) => {
   await client.pubsub.publish("servicebus-pubsub", "order", item);
 };
 
-const addToOrder = async (cart: Array<IcartItem>) => {
+const addToOrder = async (order: IOrder) => {
   const pb = new PocketBase(process.env.CMS_API);
 
-  for (let i = 0; i < cart.length; i++) {
-    const item = cart[i];
+  for (let i = 0; i < order.cart.length; i++) {
+    const item = order.cart[i];
     const record = await pb.collection("orders").create({
       productid: item.prodct.id,
       quantity: item.quantity,
@@ -28,7 +28,7 @@ const addToOrder = async (cart: Array<IcartItem>) => {
     });
   }
 
-  await addToTopic(cart);
+  await addToTopic(order);
 };
 
 export default async function handler(
