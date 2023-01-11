@@ -13,7 +13,7 @@ export const AddToCartButton: FC<IProp> = (props: IProp) => {
   const { addToCart, removeFromCart, productCount } = useShopContext();
 
   return (
-    <div className="flex gap-4 items-center pt-4">
+    <div className="flex gap-4 items-center">
       <button
         type="button"
         className="bg-purple-600/40 text-white rounded-md px-4 py-2 font-bold  hover:bg-purple-600/90"
