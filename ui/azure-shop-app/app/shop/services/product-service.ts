@@ -1,6 +1,10 @@
-export const getProducts = async (): Promise<IProductResponse | null> => {
+export const getProducts = async (
+  page: number = 1
+): Promise<IProductResponse | null> => {
+  const api = process.env.SHOP_API ?? "";
+
   try {
-    const res = await fetch(process.env.SHOP_API ?? "");
+    const res = await fetch(`${api}?page=${page}`);
     if (!res.ok) {
       return null;
     }
