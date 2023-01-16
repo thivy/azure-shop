@@ -7,3 +7,7 @@ interface IProp {
 export const Section: FC<IProp> = (props: IProp) => {
   return <div className="my-36">{props.children}</div>;
 };
+
+export const HeadingSection: FC<IProp> = (props: IProp) => {
+  return <div className="my-20">{props.children}</div>;
+};

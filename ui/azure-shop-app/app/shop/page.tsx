@@ -1,13 +1,15 @@
 import { Suspense } from "react";
+import FooterPage from "./footer-page";
 import ShopResults from "./shop-results";
 
-export const revalidate = 0;
+export const revalidate = 30;
 
-export default function Shop() {
+export default async function Shop() {
   return (
     <>
-      <Suspense fallback={<div>loading</div>}>
-        <h3 className="display-3 col-span-4">Products</h3>
+      {/* @ts-ignore*/}
+      <FooterPage activePage={1} />
+      <Suspense fallback={<div>loading products</div>}>
         {/* @ts-ignore*/}
         <ShopResults id={1} />
       </Suspense>

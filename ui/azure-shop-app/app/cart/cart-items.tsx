@@ -38,7 +38,6 @@ export const CartItems: FC<IProp> = (props) => {
 
   return (
     <div className="grid lg:grid-cols-6 gap-6 flex-1">
-      <h3 className="display-3 col-span-4">Order details</h3>
       <div className="flex flex-1 flex-col gap-4 col-span-4">
         {context.cart.map((item, index) => (
           <Panel

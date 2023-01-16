@@ -14,7 +14,7 @@ export default function RootLayout({ children }: IProp) {
   return (
     <html lang="en">
       <head />
-      <body className="bg-slate-900 text-slate-100">
+      <body className="bg-slate-900 text-slate-100 overflow-y-scroll">
         <Providers>
           <ShopProvider>
             <div

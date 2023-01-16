@@ -1,13 +1,10 @@
-import { RefreshPage } from "@/components/refresh-page";
+import FooterPage from "../footer-page";
 
-export default function ShopLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ShopLayout({ children, params }: any) {
   return (
     <>
-      <RefreshPage />
+      {/* @ts-ignore*/}
+      <FooterPage activePage={params.id} />
       {children}
     </>
   );

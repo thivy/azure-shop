@@ -14,3 +14,13 @@ export const Panel: FC<IProp> = (props) => {
     </div>
   );
 };
+
+export const PanelLine: FC<IProp> = (props) => {
+  return (
+    <div
+      className={`border-b border-white/20 py-3 text-white/80  ${props.className}`}
+    >
+      {props.children}
+    </div>
+  );
+};
