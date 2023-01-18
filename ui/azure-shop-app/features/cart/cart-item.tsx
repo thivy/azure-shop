@@ -1,4 +1,4 @@
-import { Panel } from "@/components/panel";
+import { Panel } from "@components/panel";
 import Image from "next/image";
 import { FC } from "react";
 import { IcartItem } from "./services/models";

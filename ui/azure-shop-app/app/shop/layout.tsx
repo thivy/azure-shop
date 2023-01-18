@@ -1,4 +1,4 @@
-import { HeadingSection } from "@/components/section/section";
+import { HeadingSection } from "@components/section/section";
 
 export default function ShopLayout({ params, children }: any) {
   return (

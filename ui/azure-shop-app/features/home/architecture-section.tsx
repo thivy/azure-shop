@@ -1,5 +1,5 @@
-import { Panel } from "@/components/panel";
-import { Section } from "@/components/section";
+import { Panel } from "@components/panel";
+import { Section } from "@components/section";
 
 export const ArchitectureSection = () => {
   return (

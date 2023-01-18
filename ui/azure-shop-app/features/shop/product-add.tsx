@@ -1,6 +1,6 @@
 "use client";
 
-import { AddToCart } from "@/components/cart/add-to-cart";
+import { AddToCart } from "@components/cart/add-to-cart";
 import { useShopContext } from "@features/shop/shop-context";
 import { FC } from "react";
 import { IProduct } from "./services/models";

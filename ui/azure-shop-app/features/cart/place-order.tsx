@@ -1,6 +1,6 @@
 "use client";
 
-import { Panel } from "@/components/panel";
+import { Panel } from "@components/panel";
 import { useShopContext } from "@features/shop/shop-context";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

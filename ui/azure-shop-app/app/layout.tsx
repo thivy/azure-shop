@@ -1,5 +1,5 @@
-import { Container } from "@/components/container/container";
-import { Header } from "@/components/header";
+import { Container } from "@components/container/container";
+import { Header } from "@components/header";
 import { Providers } from "@features/app/provider/provider";
 import { Inter } from "@next/font/google";
 import "../features/app/globals.css";
