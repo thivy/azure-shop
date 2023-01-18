@@ -1,6 +1,6 @@
 import { DaprClient } from "@dapr/dapr";
 import CommunicationProtocolEnum from "@dapr/dapr/enum/CommunicationProtocol.enum";
-import { IOrder } from "app/shop/shop-context";
+import { IOrder } from "@features/shop/shop-context";
 import { NextApiRequest, NextApiResponse } from "next";
 import PocketBase from "pocketbase";
 

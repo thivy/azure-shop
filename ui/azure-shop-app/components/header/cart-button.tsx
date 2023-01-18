@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { useShopContext } from "@features/shop/shop-context";
 import { FC } from "react";
-import { usePathname } from "next/navigation";
-import { useShopContext } from "app/shop/shop-context";
 import { HeaderButton } from "./header-button";
 
 interface IProp {

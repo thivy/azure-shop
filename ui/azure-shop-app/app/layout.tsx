@@ -1,8 +1,8 @@
+import { Container } from "@/components/container/container";
 import { Header } from "@/components/header";
-import { Providers } from "@/components/provider/provider";
+import { Providers } from "@features/app/provider/provider";
 import { Inter } from "@next/font/google";
-import "./globals.css";
-import { ShopProvider } from "./shop/shop-context";
+import "../features/app/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,14 +16,10 @@ export default function RootLayout({ children }: IProp) {
       <head />
       <body className="bg-slate-900 text-slate-100 overflow-y-scroll">
         <Providers>
-          <ShopProvider>
-            <div
-              className={`max-w-7xl min-w-[320px] mx-auto px-3 ${inter.className}`}
-            >
-              <Header />
-              {children}
-            </div>
-          </ShopProvider>
+          <Container className={`${inter.className}`}>
+            <Header />
+            {children}
+          </Container>
         </Providers>
       </body>
     </html>

@@ -1,4 +1,4 @@
-import { IOrder } from "app/shop/shop-context";
+import { IOrder } from "./models";
 
 export const placeOrder = async (order: IOrder) => {
   await fetch("/api/order", {

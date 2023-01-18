@@ -1,17 +1,13 @@
-import { HeadingSection } from "@/components/section/section";
-import { CartItems } from "./cart-items";
+import { PlaceOrder } from "@features/cart/place-order";
+import { ShoppingCart } from "@features/cart/shopping-cart";
 
 export const revalidate = 10;
 
 export default async function Cart() {
   return (
-    <div>
-      <HeadingSection>
-        <h3 className="display-3 col-span-4">Order details</h3>
-      </HeadingSection>
-      <div className="flex">
-        <CartItems />
-      </div>
+    <div className="grid lg:grid-cols-6 gap-6 flex-1">
+      <ShoppingCart />
+      <PlaceOrder />
     </div>
   );
 }
