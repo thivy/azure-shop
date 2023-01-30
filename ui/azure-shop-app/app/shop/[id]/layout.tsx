@@ -1,10 +1,11 @@
-import FooterPage from "@features/shop/footer-page";
+import { HeadingSection } from "@components/section/section";
 
 export default function ShopLayout({ children, params }: any) {
   return (
     <>
-      {/* @ts-expect-error Server Component */}
-      <FooterPage activePage={params.id} />
+      <HeadingSection>
+        <h3 className="display-3 col-span-4">Products</h3>
+      </HeadingSection>
       {children}
     </>
   );

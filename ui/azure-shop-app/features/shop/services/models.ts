@@ -17,3 +17,16 @@ export interface IProduct {
   price: number;
   updated: string;
 }
+
+export interface IVote {
+  product: string;
+  vote: string;
+}
+
+export interface IResponse<T> {
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
+  items: T[];
+}

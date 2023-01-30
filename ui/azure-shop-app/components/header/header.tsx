@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import { HeaderButton } from ".";
 import { CartButton } from "./cart-button";
 
@@ -16,7 +14,7 @@ export const Header = () => {
         />
       </div>
 
-      <CartButton href="/cart" icon="./shopping-bag.svg" name="" />
+      <CartButton href="/cart" icon="/shopping-bag.svg" name="" />
     </div>
   );
 };
