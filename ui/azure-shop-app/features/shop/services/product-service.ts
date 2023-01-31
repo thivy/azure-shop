@@ -3,7 +3,7 @@ import { IProductResponse, IVote } from "./models";
 export const getProducts = async (
   page: number = 1
 ): Promise<IProductResponse | null> => {
-  await sleep(random(10));
+  // await sleep(random(10));
 
   const api = process.env.SHOP_API ?? "";
 
@@ -20,7 +20,7 @@ export const getProducts = async (
 };
 
 export const getProductVotes = async (): Promise<Array<IVote>> => {
-  await sleep(random(5));
+  // await sleep(random(5));
 
   return [...randomVotes("👍"), ...randomVotes("🧡"), ...randomVotes("🤣")];
 };

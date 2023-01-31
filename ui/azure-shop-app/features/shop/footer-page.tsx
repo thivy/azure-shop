@@ -8,7 +8,6 @@ export default async function FooterPage({
 }) {
   const data = await getProducts();
   const arr = new Array(data?.totalPages).fill(0);
-  console.log(activePage, "activePage");
   return (
     <div className="flex gap-4 col-span-4 self-center pb-6">
       {data
