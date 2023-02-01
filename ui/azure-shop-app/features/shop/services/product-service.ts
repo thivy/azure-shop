@@ -4,7 +4,6 @@ export const getProducts = async (
   page: number = 1
 ): Promise<IProductResponse | null> => {
   // await sleep(random(10));
-
   const api = `${process.env.CMS_API}/api/collections/products/records` ?? "";
 
   try {
@@ -21,7 +20,6 @@ export const getProducts = async (
 
 export const getProductVotes = async (): Promise<Array<IVote>> => {
   // await sleep(random(5));
-
   return [...randomVotes("👍"), ...randomVotes("🧡"), ...randomVotes("🤣")];
 };
 
