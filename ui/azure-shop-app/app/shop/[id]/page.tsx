@@ -7,7 +7,7 @@ export const revalidate = 0;
 
 export default function Shop({ params }: any) {
   return (
-    <div className="grid lg:grid-cols-4 my-4 gap-4 md:grid-cols-2 sm:grid-cols-1 ">
+    <div className=" my-4 ">
       <WithSuspense id={params.id} />
     </div>
   );
