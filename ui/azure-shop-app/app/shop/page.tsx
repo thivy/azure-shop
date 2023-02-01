@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
-export default async function Shop() {
+export default function Shop() {
   redirect("/shop/1");
+  return <></>;
 }

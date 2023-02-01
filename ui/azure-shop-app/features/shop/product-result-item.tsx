@@ -32,10 +32,25 @@ export const ProudctResultItem: FC<IProp> = (props) => {
         <div>${props.product.price}</div>
         <ProductAdd product={_prop.product} />
       </div>
-      {/* <ProudctVote /> */}
-      <Suspense fallback={<ProudctVoteLoading />}>
-        <ProudctVote />
-      </Suspense>
+      <WithSuspense />
     </Panel>
+  );
+};
+
+const WithSuspense = () => {
+  return (
+    <Suspense fallback={<ProudctVoteLoading />}>
+      {/* @ts-expect-error Server Component */}
+      <ProudctVote />
+    </Suspense>
+  );
+};
+
+const WithoutSuspense = () => {
+  return (
+    <>
+      {/* @ts-expect-error Server Component */}
+      <ProudctVote />
+    </>
   );
 };
