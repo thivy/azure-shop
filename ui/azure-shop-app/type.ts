@@ -1,9 +1,4 @@
-const requiredServerEnvs = [
-  "CMS_API",
-  "SHOP_API",
-  "NEXTAUTH_URL",
-  "NEXTAUTH_SECRET",
-] as const;
+const requiredServerEnvs = ["CMS_API", "IMAGE_API"] as const;
 
 type RequiredServerEnvKeys = typeof requiredServerEnvs[number];
 

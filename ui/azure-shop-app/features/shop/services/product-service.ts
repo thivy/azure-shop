@@ -5,7 +5,7 @@ export const getProducts = async (
 ): Promise<IProductResponse | null> => {
   // await sleep(random(10));
 
-  const api = process.env.SHOP_API ?? "";
+  const api = `${process.env.CMS_API}/api/collections/products/records` ?? "";
 
   try {
     const res = await fetch(`${api}?page=${page}`);
@@ -40,3 +40,21 @@ const sleep = (seconds: number) =>
 
 // random number between 0 and 3
 const random = (value: number) => Math.floor(Math.random() * value);
+
+export const getFeaturedProducts =
+  async (): Promise<IProductResponse | null> => {
+    const api =
+      `${process.env.CMS_API}/api/collections/products/records?filter=featured=true` ??
+      "";
+    console.log(api);
+    try {
+      const res = await fetch(`${api}`);
+      if (!res.ok) {
+        return null;
+      }
+      return res.json();
+    } catch (e) {
+      console.log("Failed to FETCH", e);
+      return null;
+    }
+  };

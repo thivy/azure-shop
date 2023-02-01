@@ -14,7 +14,7 @@ export const ProudctResultItem: FC<IProp> = (props) => {
     ...props,
     product: {
       ...props.product,
-      image: `${process.env.CMS_API}/api/files/${props.product.collectionId}/${props.product.id}/${props.product.image}`,
+      image: `${process.env.IMAGE_API}/${props.product.collectionId}/${props.product.id}/${props.product.image}`,
     },
   };
   return (

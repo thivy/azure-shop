@@ -16,6 +16,7 @@ export interface IProduct {
   name: string;
   price: number;
   updated: string;
+  featured: boolean;
 }
 
 export interface IVote {

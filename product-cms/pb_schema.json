@@ -112,6 +112,15 @@
           "min": null,
           "max": null
         }
+      },
+      {
+        "id": "ts3casnn",
+        "name": "featured",
+        "type": "bool",
+        "system": false,
+        "required": false,
+        "unique": false,
+        "options": {}
       }
     ],
     "listRule": "",
