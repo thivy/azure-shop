@@ -1,3 +1,4 @@
+import { uiDebug } from "@features/settings";
 import Link from "next/link";
 import { getProducts } from "./services/product-service";
 
@@ -9,7 +10,11 @@ export default async function Pagination({
   const data = await getProducts();
   const arr = new Array(data?.totalPages).fill(0);
   return (
-    <div className="flex gap-4 col-span-4 self-center pb-6 overflow-x-auto">
+    <div
+      className={`flex gap-4 col-span-4 self-center py-4 overflow-x-auto ${uiDebug(
+        false
+      )}`}
+    >
       {data
         ? arr.map((_, index) => (
             <Link

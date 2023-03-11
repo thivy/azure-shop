@@ -1,8 +1,9 @@
 import { Panel } from "@components/panel";
+import { uiDebug } from "@features/settings";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { ProductAdd } from "./product-add";
-import { ProudctVote } from "./product-vote";
+import { ProudctVote, ProudctVoteLoading } from "./product-vote";
 import { IProduct } from "./services/models";
 
 interface IProp {
@@ -18,7 +19,7 @@ export const ProudctResultItem: FC<IProp> = (props) => {
     },
   };
   return (
-    <Panel className="justify-center flex flex-col gap-8">
+    <Panel className={`justify-center flex flex-col gap-8 ${uiDebug(false)}`}>
       <div className="text-slate-50 truncate ">{props.product.name}</div>
       <Image
         className="self-center p-4"
@@ -32,8 +33,10 @@ export const ProudctResultItem: FC<IProp> = (props) => {
         <div>${props.product.price}</div>
         <ProductAdd product={_prop.product} />
       </div>
-      {/* @ts-expect-error Server Component */}
-      <ProudctVote />
+      <Suspense fallback={<ProudctVoteLoading />}>
+        {/* @ts-expect-error Server Component */}
+        <ProudctVote />
+      </Suspense>
     </Panel>
   );
 };

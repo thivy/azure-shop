@@ -1,5 +1,6 @@
 "use client";
 
+import { uiDebug } from "@features/settings";
 import { IVote } from "@features/shop/services/models";
 import { FC, useState } from "react";
 
@@ -25,7 +26,9 @@ export const EmojiVote: FC<IProp> = (props) => {
   return (
     <button
       onClick={() => onVote()}
-      className="p-2 hover:bg-slate-400/25 rounded-md flex gap-2 bg-slate-400/10 px-3"
+      className={`p-2 hover:bg-slate-400/25 rounded-md flex gap-2 bg-slate-400/10 px-3 ${uiDebug(
+        true
+      )}`}
     >
       <span>{count}</span> <span>{props.emoji}</span>
     </button>

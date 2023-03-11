@@ -1,4 +1,5 @@
 import { EmojiVote } from "@components/emoji-vote/emoji-vote";
+import { uiDebug } from "@features/settings";
 import { getProductVotes } from "./services/product-service";
 
 export const ProudctVote = async () => {
@@ -12,9 +13,8 @@ export const ProudctVote = async () => {
     heart = items.filter((x) => x.vote === "🧡").length ?? 0;
     funny = items.filter((x) => x.vote === "🤣").length ?? 0;
   } catch {}
-
   return (
-    <div className="flex gap-4 justify-between">
+    <div className={`flex gap-4 justify-between ${uiDebug(false)}`}>
       <EmojiVote count={up} emoji="👍" />
       <EmojiVote count={heart} emoji="🧡" />
       <EmojiVote count={funny} emoji="🤣" />

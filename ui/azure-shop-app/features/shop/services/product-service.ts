@@ -3,7 +3,7 @@ import { IProductResponse, IVote } from "./models";
 export const getProducts = async (
   page: number = 1
 ): Promise<IProductResponse | null> => {
-  await sleep(random(3));
+  await sleep(1);
   const api = `${process.env.CMS_API}/api/collections/products/records` ?? "";
 
   try {
@@ -19,7 +19,8 @@ export const getProducts = async (
 };
 
 export const getProductVotes = async (): Promise<Array<IVote>> => {
-  await sleep(random(5));
+  await sleep(1);
+
   return [...randomVotes("👍"), ...randomVotes("🧡"), ...randomVotes("🤣")];
 };
 
@@ -54,5 +55,5 @@ export const getFeaturedProducts =
 const sleep = (seconds: number) =>
   new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 
-// random number between 0 and 3
-const random = (value: number) => Math.floor(Math.random() * value);
+// return a random number between 0 and max
+const random = (max: number) => Math.floor(Math.random() * max);
