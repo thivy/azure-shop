@@ -22,6 +22,7 @@ export interface IProduct {
 export interface IVote {
   product: string;
   vote: string;
+  count: number;
 }
 
 export interface IResponse<T> {

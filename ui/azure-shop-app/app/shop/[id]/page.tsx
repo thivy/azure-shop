@@ -7,6 +7,8 @@ import { Suspense } from "react";
 export const revalidate = 0;
 
 export default function Shop({ params }: any) {
+  //TODO: Demo add preload
+  //preload();
   return (
     <div className={`my-4 ${uiDebug(false)}`}>
       <Suspense fallback={<ProudctsLoading />}>

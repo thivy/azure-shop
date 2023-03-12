@@ -1,7 +1,6 @@
 "use client";
 
 import { uiDebug } from "@features/settings";
-import { IVote } from "@features/shop/services/models";
 import { FC, useState } from "react";
 
 interface IProp {
@@ -11,11 +10,6 @@ interface IProp {
 }
 
 export const EmojiVote: FC<IProp> = (props) => {
-  const product: IVote = {
-    product: "",
-    vote: props.emoji,
-  };
-
   const [count, setCount] = useState(props.count);
 
   const onVote = () => {

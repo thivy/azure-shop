@@ -183,46 +183,6 @@
     "options": {}
   },
   {
-    "id": "2n7h0qf037c2cl1",
-    "name": "comments",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "id": "5mgltsgo",
-        "name": "description",
-        "type": "text",
-        "system": false,
-        "required": false,
-        "unique": false,
-        "options": {
-          "min": null,
-          "max": 250,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "ku2mqn9v",
-        "name": "product",
-        "type": "relation",
-        "system": false,
-        "required": false,
-        "unique": false,
-        "options": {
-          "maxSelect": 1,
-          "collectionId": "sz4ck86gljc31i4",
-          "cascadeDelete": true
-        }
-      }
-    ],
-    "listRule": null,
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
     "id": "q0ud5rngg58guoj",
     "name": "votes",
     "type": "base",
@@ -242,16 +202,15 @@
         }
       },
       {
-        "id": "0rvcdele",
-        "name": "product",
-        "type": "relation",
+        "id": "fsxu6oa9",
+        "name": "count",
+        "type": "number",
         "system": false,
         "required": false,
         "unique": false,
         "options": {
-          "maxSelect": 1,
-          "collectionId": "sz4ck86gljc31i4",
-          "cascadeDelete": false
+          "min": null,
+          "max": null
         }
       }
     ],

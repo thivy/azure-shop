@@ -3,16 +3,11 @@ import { uiDebug } from "@features/settings";
 import { getProductVotes } from "./services/product-service";
 
 export const ProudctVote = async () => {
-  let up = 0,
-    heart = 0,
-    funny = 0;
+  const voteResponse = await getProductVotes();
+  let up = voteResponse.items[0].count,
+    heart = voteResponse.items[1].count,
+    funny = voteResponse.items[2].count;
 
-  try {
-    const items = await getProductVotes();
-    up = items.filter((x) => x.vote === "👍").length ?? 0;
-    heart = items.filter((x) => x.vote === "🧡").length ?? 0;
-    funny = items.filter((x) => x.vote === "🤣").length ?? 0;
-  } catch {}
   return (
     <div className={`flex gap-4 justify-between ${uiDebug(false)}`}>
       <EmojiVote count={up} emoji="👍" />
