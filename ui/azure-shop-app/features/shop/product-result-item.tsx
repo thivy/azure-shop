@@ -1,9 +1,9 @@
 import { Panel } from "@components/panel";
 import { uiDebug } from "@features/settings";
 import Image from "next/image";
-import { FC, Suspense } from "react";
+import { FC } from "react";
 import { ProductAdd } from "./product-add";
-import { ProudctVote, ProudctVoteLoading } from "./product-vote";
+import { ProudctVote } from "./product-vote";
 import { IProduct } from "./services/models";
 
 interface IProp {
@@ -33,10 +33,9 @@ export const ProudctResultItem: FC<IProp> = (props) => {
         <div>${props.product.price}</div>
         <ProductAdd product={_prop.product} />
       </div>
-      <Suspense fallback={<ProudctVoteLoading />}>
-        {/* @ts-expect-error Server Component */}
-        <ProudctVote />
-      </Suspense>
+      {/* TODO: demo add suspense */}
+      {/* @ts-expect-error Server Component */}
+      <ProudctVote />
     </Panel>
   );
 };
