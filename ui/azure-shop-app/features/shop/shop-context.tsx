@@ -82,7 +82,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 export function useShopContext() {
   const context = React.useContext(ShopContext);
   if (context === null) {
-    throw new Error("useCounter must be used within a CounterProvider");
+    throw new Error("useShopContext must be used within a Provider");
   }
   return context;
 }

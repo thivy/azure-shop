@@ -11,7 +11,6 @@ interface IProp {
   icon: string;
   name: string;
   children?: React.ReactNode;
-  refresh?: boolean;
 }
 
 export const HeaderButton: FC<IProp> = (props: IProp) => {
