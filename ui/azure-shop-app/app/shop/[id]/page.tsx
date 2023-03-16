@@ -6,7 +6,7 @@ export const revalidate = 0;
 
 export default function Shop({ params }: any) {
   //TODO: Demo add preload
-  //preload();
+  //preloadProdutsPageData();
   return (
     <div className={`my-4 ${uiDebug(false)}`}>
       {/* TODO: demo add suspense */}

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { IProductResponse, IResponse, IVote } from "./models";
 
 export const preloadProdutsPageData = () => {
@@ -15,13 +16,13 @@ export const getProducts = async (
   return res.json();
 };
 
-export const getProductVotes = async (): Promise<IResponse<IVote>> => {
+export const getProductVotes = cache(async (): Promise<IResponse<IVote>> => {
   // TODO: demo multiple API calls
   // console.log("getProductVotes");
   const api = `${process.env.HOST}/api/vote` ?? "";
   const res = await fetch(`${api}`);
   return res.json();
-};
+});
 
 export const getFeaturedProducts =
   async (): Promise<IProductResponse | null> => {

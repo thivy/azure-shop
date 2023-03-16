@@ -1,0 +1,57 @@
+//******* layout and pages
+
+
+import { HeadingSection } from "@components/section/section";
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <HeadingSection>
+        <h3 className="display-3 col-span-4">Demo</h3>
+      </HeadingSection>
+      {children}
+    </>
+  );
+}
+
+**
+
+export default function Page() {
+  return (
+    <>
+    Demo Home Page
+    </>
+  );
+}
+
+************** Tabs demo
+
+<div className="flex gap-3">
+    <HeaderButton href="/demo/tab1" icon="/store.svg" name="Tab 1" />
+    <HeaderButton href="/demo/tab2" icon="/demo.svg" name="Tab 2" />
+</div>
+
+export default function Page() {
+  return (
+    <>
+    Tab 1 Content
+    </>
+  );
+}
+
+export default function Page() {
+  return (
+    <>
+    Tab 2 Content
+    </>
+  );
+}
+
+//******* DEBUG Mode = client vs server ProudctResults  
+
+//******* demo on Automatic fetch() Request Deduping
+
+//******* add network latency
+// create a function that resolves a promise after a number of seconds
+
+//******* streaming

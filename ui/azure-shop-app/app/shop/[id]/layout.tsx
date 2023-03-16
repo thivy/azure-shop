@@ -1,6 +1,6 @@
 import { HeadingSection } from "@components/section/section";
 
-export default function Layout({ children }: any) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <HeadingSection>
