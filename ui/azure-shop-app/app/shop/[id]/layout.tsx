@@ -1,6 +1,6 @@
 import { HeadingSection } from "@components/section/section";
 
-export default function ShopLayout({ children, params }: any) {
+export default function Layout({ children }: any) {
   return (
     <>
       <HeadingSection>

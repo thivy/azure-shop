@@ -7,7 +7,7 @@ export const Header = () => {
     <div className={`py-8 flex justify-between ${uiDebug(false)}`}>
       <div className="flex gap-3">
         <HeaderButton href="/" icon="/azure.svg" name="Home" />
-        <HeaderButton href="/shop" icon="/store.svg" name="Shop" />
+        <HeaderButton href="/shop/1" icon="/store.svg" name="Shop" />
         <HeaderButton href="/demo" icon="/demo.svg" name="Demo" />
       </div>
 
