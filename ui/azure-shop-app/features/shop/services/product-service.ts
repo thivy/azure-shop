@@ -1,6 +1,6 @@
 import { IProductResponse, IResponse, IVote } from "./models";
 
-export const preload = () => {
+export const preloadProdutsPageData = () => {
   void getProductVotes();
   void getProducts();
 };
@@ -9,7 +9,7 @@ export const getProducts = async (
   page: number = 1
 ): Promise<IProductResponse> => {
   // TODO: demo add network latency
-  // await sleep(5);
+  //https://demo-shop-cms.victoriousfield-37fea9bd.australiaeast.azurecontainerapps.io/api/collections/products/records?page=3
   const api = `${process.env.CMS_API}/api/collections/products/records` ?? "";
   const res = await fetch(`${api}?page=${page}`);
   return res.json();
@@ -33,7 +33,3 @@ export const getFeaturedProducts =
 
     return res.json();
   };
-
-// return a promise that resolves after seconds
-export const sleep = (seconds: number) =>
-  new Promise((resolve) => setTimeout(resolve, seconds * 1000));
