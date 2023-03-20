@@ -55,3 +55,11 @@ export default function Page() {
 // create a function that resolves a promise after a number of seconds
 
 //******* streaming
+
+http://localhost:3500/v1.0/invoke/demo-shop-cms/method
+
+
+
+CMS_API https://demo-shop-cms--19g7v3n.internal.victoriousfield-37fea9bd.australiaeast.azurecontainerapps.io/
+IMAGE_API https://demo-shop-cms.victoriousfield-37fea9bd.australiaeast.azurecontainerapps.io/api/files 
+HOST https://demo-shop-front.victoriousfield-37fea9bd.australiaeast.azurecontainerapps.io

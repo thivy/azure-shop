@@ -1,4 +1,5 @@
 import { IResponse, IVote } from "@features/shop/services/models";
+import { wait } from "@features/shop/services/product-service";
 import { NextApiRequest, NextApiResponse } from "next";
 import PocketBase from "pocketbase";
 
@@ -14,6 +15,7 @@ export default async function handler(
 ) {
   //TODO: demo show only one API being called
   // console.log("vote API")
+  await wait(2000);
   try {
     const items: IResponse<IVote> = {
       page: 1,
