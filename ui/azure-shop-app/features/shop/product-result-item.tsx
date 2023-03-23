@@ -1,6 +1,5 @@
 import { Panel } from "@components/panel";
 import { uiDebug } from "@features/settings";
-import Image from "next/image";
 import { FC, Suspense } from "react";
 import { ProductAdd } from "./product-add";
 import { ProudctVote, ProudctVoteLoading } from "./product-vote";
@@ -21,7 +20,7 @@ export const ProudctResultItem: FC<IProp> = (props) => {
   return (
     <Panel className={`justify-center flex flex-col gap-8 ${uiDebug(false)}`}>
       <div className="text-slate-50 truncate ">{props.product.name}</div>
-      <Image
+      <img
         className="self-center p-4"
         src={_prop.product.image}
         alt={_prop.product.name}
