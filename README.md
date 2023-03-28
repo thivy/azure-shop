@@ -21,19 +21,15 @@ This repo is an example e-commerce application that is built with the following 
 
 ### Setup PocketBase.
 
-in this example, we are going to be setting up PocketBase inside a docker container. The docker example includes preloaded products and associated images for each product.
-
-Navigate to `product-cms` folder and build the docker image by running the following command
+To set up PocketBase, we recommend using a docker container that includes preloaded products and associated images for your convenience. Firstly, navigate to the "product-cms" folder and execute the following command to build the docker image:
 
 `docker build --pull --rm -f "Dockerfile" -t shop-products:latest "product-cms"`
 
-Once the command is executed you should now be able to run PocketBase by using the following command
+Then, start PocketBase by running the command:
 
 `docker run --rm -it -p 7000:7000/tcp shop-products:latest`
 
-Now navigate http://localhost:7000/\_ and you should be presented with the admin login
-
-use the following credentials to log in:
+Next, go to "http://localhost:7000/_" to access the admin login page, where you can log in using the provided credentials:
 
 username: admin@admin.com
 
@@ -41,10 +37,11 @@ password: admin@admin.com
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977889604/a9bdb909-57d2-4d58-9609-edd22c8e5be6.png)
 
-Once you've logged in you should be able to view the preloaded products and images under the products collections
+Once you've logged in, you'll be able to view the preloaded products and images under the "products collections" section.
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977957356/a237d6f4-2c82-4af3-927f-97adfce3014f.png)
 
-You can also access these products via REST http://localhost:7000/api/collections/products/records
+Additionally, you can access the products via REST at "http://localhost:7000/api/collections/products/records". 
 
-Note for demo purposes all APIs are made public, you can setup API keys per API operations using the following [https://pocketbase.io/docs/api-rules-and-filters/](https://pocketbase.io/docs/api-rules-and-filters/)
+It's worth noting that all APIs are currently public for demonstration purposes. However, for production use, we recommend setting up API keys per API operation, which can be accomplished using this guide:[https://pocketbase.io/docs/api-rules-and-filters/](https://pocketbase.io/docs/api-rules-and-filters/)
+
