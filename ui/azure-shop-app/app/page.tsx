@@ -6,7 +6,6 @@ export const revalidate = 0;
 export default function HomePage() {
   return (
     <>
-      Test
       <HeroSection />
       {/* @ts-expect-error Server Component */}
       <FeaturedProducts />

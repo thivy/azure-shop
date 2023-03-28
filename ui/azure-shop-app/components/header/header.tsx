@@ -8,7 +8,6 @@ export const Header = () => {
       <div className="flex gap-3">
         <HeaderButton href="/" icon="/azure.svg" name="Home" />
         <HeaderButton href="/shop/1" icon="/store.svg" name="Shop" />
-        <HeaderButton href="/demo" icon="/demo.svg" name="Demo" />
       </div>
 
       <CartButton href="/cart" icon="/shopping-bag.svg" name="" />

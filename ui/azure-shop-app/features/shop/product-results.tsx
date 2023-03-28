@@ -1,8 +1,8 @@
 import { uiDebug } from "@features/settings";
-import { ProudctResultItem } from "./product-result-item";
+import { ProductResultItem } from "./product-result-item";
 import { getProducts } from "./services/product-service";
 
-export const ProudctResults = async ({ id }: any) => {
+export const ProductResults = async ({ id }: any) => {
   const data = await getProducts(id);
   return (
     <div
@@ -12,7 +12,7 @@ export const ProudctResults = async ({ id }: any) => {
     >
       {data
         ? data.items.map((product, index) => (
-            <ProudctResultItem key={index} product={product} />
+            <ProductResultItem key={index} product={product} />
           ))
         : null}
     </div>

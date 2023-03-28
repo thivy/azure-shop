@@ -1,19 +1,10 @@
 import { IResponse, IVote } from "@features/shop/services/models";
 import { NextApiRequest, NextApiResponse } from "next";
-import PocketBase from "pocketbase";
-
-export const pb = new PocketBase(process.env.CMS_API);
-
-const vote = async (vote: IVote) => {
-  const record = await pb.collection("votes").create(vote);
-};
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  //TODO: demo show only one API being called
-  // console.log("vote API")
   try {
     const items: IResponse<IVote> = {
       page: 1,
