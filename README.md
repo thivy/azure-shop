@@ -39,6 +39,8 @@ username: admin@admin.com
 
 password: admin@admin.com
 
+![alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977889604/a9bdb909-57d2-4d58-9609-edd22c8e5be6.png)
+
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977889604/a9bdb909-57d2-4d58-9609-edd22c8e5be6.png align="center")
 
 Once you've logged in you should be able to view the preloaded products and images under the products collections
