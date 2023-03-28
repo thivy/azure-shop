@@ -39,13 +39,11 @@ username: admin@admin.com
 
 password: admin@admin.com
 
-![alt text](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977889604/a9bdb909-57d2-4d58-9609-edd22c8e5be6.png)
-
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977889604/a9bdb909-57d2-4d58-9609-edd22c8e5be6.png align="center")
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977889604/a9bdb909-57d2-4d58-9609-edd22c8e5be6.png)
 
 Once you've logged in you should be able to view the preloaded products and images under the products collections
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977957356/a237d6f4-2c82-4af3-927f-97adfce3014f.png align="center")
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1679977957356/a237d6f4-2c82-4af3-927f-97adfce3014f.png)
 
 You can also access these products via REST http://localhost:7000/api/collections/products/records
 
