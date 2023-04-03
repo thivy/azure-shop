@@ -7,12 +7,11 @@ import PocketBase from "pocketbase";
 const daprHost = "127.0.0.1";
 
 export const addToTopic = async (item: IOrder) => {
-  const client = new DaprClient(
-    daprHost,
-    process.env.DAPR_HTTP_PORT,
-    CommunicationProtocolEnum.HTTP
-  );
-
+  const client = new DaprClient({
+    communicationProtocol: CommunicationProtocolEnum.HTTP, // default
+    daprHost: daprHost, // default
+    daprPort: process.env.DAPR_HTTP_PORT, // default
+  });
   await client.pubsub.publish("servicebus-pubsub", "order", item);
 };
 
