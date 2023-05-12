@@ -5,8 +5,6 @@ import { ProductsLoading } from "@features/shop/products-loading";
 import { preloadProductsPageData } from "@features/shop/services/product-service";
 import { Suspense } from "react";
 
-export const revalidate = 0;
-
 export default function Shop({ params }: any) {
   preloadProductsPageData();
   return (

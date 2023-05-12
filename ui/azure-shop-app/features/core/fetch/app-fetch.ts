@@ -1,15 +1,16 @@
 const isPlainObject = (value: unknown) => value?.constructor === Object;
 
-class ResponseError extends Error {
+export class ResponseError extends Error {
   response: Response;
 
   constructor(message: string, res: Response) {
     super(message);
     this.response = res;
+    this.name = "ResponseError";
   }
 }
 
-export async function myFetch(
+export async function fetcher(
   input: RequestInfo | URL,
   init?: RequestInit
 ): Promise<Response> {
@@ -31,9 +32,9 @@ export async function myFetch(
     }
   }
 
-  const res = await fetch(input, initOptions);
+  const res = await fetch(input, { ...initOptions, next: { revalidate: 10 } });
   if (!res.ok) {
-    throw new ResponseError("Bad response", res);
+    throw new ResponseError(res.statusText, res);
   }
   return res;
 }

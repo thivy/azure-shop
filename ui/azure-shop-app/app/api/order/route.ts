@@ -1,8 +1,13 @@
 import { DaprClient } from "@dapr/dapr";
 import CommunicationProtocolEnum from "@dapr/dapr/enum/CommunicationProtocol.enum";
 import { IOrder } from "@features/cart/services/models";
-import { NextApiRequest, NextApiResponse } from "next";
 import PocketBase from "pocketbase";
+
+export async function POST(request: Request) {
+  const res = (await request.json()) as IOrder;
+  await addToOrder(res);
+  return new Response("done");
+}
 
 const daprHost = "127.0.0.1";
 
@@ -29,15 +34,3 @@ const addToOrder = async (order: IOrder) => {
 
   await addToTopic(order);
 };
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  try {
-    await addToOrder(req.body);
-    res.status(200).json("done");
-  } catch (e) {
-    res.status(200).json(e);
-  }
-}
