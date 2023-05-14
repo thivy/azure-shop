@@ -1,5 +1,5 @@
 "use client";
 
-import ErrorBoundary from "app/error";
+import ErrorUI from "@components/error/error-ui";
 
-export default ErrorBoundary;
+export default ErrorUI;
