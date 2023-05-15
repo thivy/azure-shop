@@ -1,29 +1,25 @@
 "use client";
-
-import { uiDebug } from "@features/settings";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 interface IProp {
   count: number;
   emoji: string;
-  onClick?: (emoji: string) => void;
+  productId: string;
+  onClick?: (productId: string, emoji: string) => void;
 }
 
 export const EmojiVote: FC<IProp> = (props) => {
-  const [count, setCount] = useState(props.count);
-
-  const onVote = async () => {
-    props.onClick?.(props.emoji);
+  const onVote = () => {
+    props.onClick?.(props.productId, props.emoji);
   };
 
   return (
     <button
+      value={props.emoji}
       onClick={() => onVote()}
-      className={`p-2 hover:bg-slate-400/25 rounded-md flex gap-2 bg-slate-400/10 px-3 ${uiDebug(
-        true
-      )}`}
+      className={`p-2 hover:bg-slate-400/25 rounded-md flex gap-2 bg-slate-400/10 px-3 `}
     >
-      <span>{count}</span> <span>{props.emoji}</span>
+      <span>{props.count}</span> <span>{props.emoji}</span>
     </button>
   );
 };

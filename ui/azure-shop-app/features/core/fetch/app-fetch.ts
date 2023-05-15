@@ -10,7 +10,8 @@ export class ResponseError extends Error {
 
 export async function fetcher(
   input: RequestInfo | URL,
-  init?: RequestInit
+  init?: RequestInit,
+  tags?: string[]
 ): Promise<Response> {
   let initOptions = init;
   initOptions = {
@@ -19,7 +20,7 @@ export async function fetcher(
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    next: { revalidate: init?.method === "POST" ? 0 : 10 },
+    next: { revalidate: init?.method === "POST" ? 0 : 10, tags: tags },
   };
 
   const res = await fetch(input, initOptions);

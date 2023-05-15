@@ -15,12 +15,12 @@ export default function RootLayout({ children }: IProp) {
   return (
     <html lang="en">
       <body
-        className={`bg-slate-900 text-slate-100 overflow-y-scroll  ${uiDebug(
-          false
-        )}`}
+        className={`bg-slate-900 text-slate-100 overflow-y-scroll ${
+          inter.className
+        } ${uiDebug(false)}`}
       >
         <Providers>
-          <Container className={`${inter.className}`}>
+          <Container>
             <Header />
             {children}
           </Container>
