@@ -11,16 +11,16 @@
   "dependencies": {
     "@dapr/dapr": "^3.0.0",
     "@next/font": "^13.2.4",
-    "@types/node": "^18.15.10",
-    "@types/react": "^18.0.30",
+    "@types/node": "^20.1.4",
+    "@types/react": "^18.2.6",
     "@types/react-dom": "^18.0.11",
-    "eslint": "^8.36.0",
+    "eslint": "^8.40.0",
     "eslint-config-next": "^13.4.2",
     "next": "^13.4.2",
     "pocketbase": "^0.14.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

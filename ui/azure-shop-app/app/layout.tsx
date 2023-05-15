@@ -2,6 +2,7 @@ import { Container } from "@components/container/container";
 import { Header } from "@components/header";
 import { Providers } from "@features/app/provider/provider";
 import { uiDebug } from "@features/settings";
+import { setUniqueIdForUser } from "@features/shop/services/product-service";
 import { Inter } from "@next/font/google";
 import "../features/app/globals.css";
 
@@ -12,6 +13,7 @@ interface IProp {
 }
 
 export default function RootLayout({ children }: IProp) {
+  setUniqueIdForUser();
   return (
     <html lang="en">
       <body
