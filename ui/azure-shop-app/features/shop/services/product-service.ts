@@ -1,7 +1,5 @@
 "use server";
 import { fetcher } from "@features/core/fetch/app-fetch";
-import { randomUUID } from "crypto";
-import { cookies } from "next/headers";
 import { cache } from "react";
 import { IProductResponse, IResponse, IVote } from "./models";
 
@@ -53,28 +51,12 @@ export const getProductVotesForUser = cache(
   }
 );
 
-export const setUniqueIdForUser = () => {
-  "use server";
-  const cookie = cookies();
-  let uui = cookie.get("uui");
-  if (uui) {
-    return uui;
-  } else {
-    uui = { name: "uui", value: randomUUID() };
-    // @ts-ignore
-    cookies().set("uui", uui);
-  }
-
-  return uui?.value;
-};
-
 export const addProductVotes = async (
   productId: string,
   vote: string
 ): Promise<void> => {
   const _vote = { product: productId, vote: vote };
   const api = `${process.env.CMS_API}/api/collections/votes/records`;
-  setUniqueIdForUser();
   await fetcher(
     api,
     {

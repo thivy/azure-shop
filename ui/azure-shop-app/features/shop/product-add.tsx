@@ -14,8 +14,8 @@ export const ProductAdd: FC<IProp> = (props) => {
   const { addToCart, removeFromCart, productCount } = useShopContext();
   return (
     <AddRemoveButton
-      remove={() => removeFromCart({ quantity: 1, prodct: product })}
-      add={() => addToCart({ quantity: 1, prodct: product })}
+      remove={() => removeFromCart({ quantity: 1, product: product })}
+      add={() => addToCart({ quantity: 1, product: product })}
       value={productCount(product.id)}
     />
   );

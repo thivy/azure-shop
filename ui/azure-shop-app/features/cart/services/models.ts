@@ -1,11 +1,11 @@
 import { IProduct } from "@features/shop/services/models";
 
 export interface IOrder {
-  cart: Array<IcartItem>;
+  cart: Array<ICartItem>;
   email: string;
 }
 
-export interface IcartItem {
-  prodct: IProduct;
+export interface ICartItem {
+  product: IProduct;
   quantity: number;
 }

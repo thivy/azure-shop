@@ -1,10 +1,10 @@
 import { Panel } from "@components/panel";
 import Image from "next/image";
 import { FC } from "react";
-import { IcartItem } from "./services/models";
+import { ICartItem } from "./services/models";
 
 interface IProp {
-  item: IcartItem;
+  item: ICartItem;
 }
 
 export const CartItem: FC<IProp> = (props) => {
@@ -19,15 +19,15 @@ export const CartItem: FC<IProp> = (props) => {
   return (
     <Panel className="grid grid-cols-12 grid-flow-col gap-4 flex-1 items-center">
       <Image
-        src={item.prodct.image}
-        alt={item.prodct.name}
+        src={item.product.image}
+        alt={item.product.name}
         width={50}
         height={30}
       />
-      <div className="col-span-4 font-semibold">{item.prodct.name}</div>
+      <div className="col-span-4 font-semibold">{item.product.name}</div>
       <div className="">{item.quantity}</div>
       <div className="text-green-500">
-        ${totalCost(item.prodct.price, item.quantity)}
+        ${totalCost(item.product.price, item.quantity)}
       </div>
     </Panel>
   );

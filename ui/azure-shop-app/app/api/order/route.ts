@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
 const daprHost = "127.0.0.1";
 
-export const addToTopic = async (item: IOrder) => {
+const addToTopic = async (item: IOrder) => {
   const client = new DaprClient({
     communicationProtocol: CommunicationProtocolEnum.HTTP, // default
     daprHost: daprHost, // default
@@ -26,9 +26,9 @@ const addToOrder = async (order: IOrder) => {
   for (let i = 0; i < order.cart.length; i++) {
     const item = order.cart[i];
     const record = await pb.collection("orders").create({
-      productid: item.prodct.id,
+      productid: item.product.id,
       quantity: item.quantity,
-      productname: item.prodct.name,
+      productname: item.product.name,
     });
   }
 

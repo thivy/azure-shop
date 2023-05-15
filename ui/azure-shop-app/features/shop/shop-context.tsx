@@ -1,12 +1,12 @@
 "use client";
 
-import { IcartItem } from "@features/cart/services/models";
+import { ICartItem } from "@features/cart/services/models";
 import React from "react";
 
 interface IShopContext {
-  cart: Array<IcartItem>;
-  addToCart: (item: IcartItem) => void;
-  removeFromCart: (item: IcartItem) => void;
+  cart: Array<ICartItem>;
+  addToCart: (item: ICartItem) => void;
+  removeFromCart: (item: ICartItem) => void;
   productCount: (productId: string) => number;
   clearCart: () => void;
   counter: number;
@@ -15,12 +15,14 @@ interface IShopContext {
 const ShopContext = React.createContext<IShopContext | null>(null);
 
 export function ShopProvider({ children }: { children: React.ReactNode }) {
-  const [cart, setCartItems] = React.useState<IcartItem[]>([]);
+  const [cart, setCartItems] = React.useState<ICartItem[]>([]);
   const [counter, setCounter] = React.useState(0);
 
-  const addToCart = (cartItem: IcartItem) => {
+  const addToCart = (cartItem: ICartItem) => {
     const items = [...cart];
-    const existingItem = items.find((i) => i.prodct.id === cartItem.prodct.id);
+    const existingItem = items.find(
+      (i) => i.product.id === cartItem.product.id
+    );
 
     if (existingItem) {
       existingItem.quantity += 1;
@@ -37,9 +39,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     setCounter(0);
   };
 
-  const removeFromCart = (cartItem: IcartItem) => {
+  const removeFromCart = (cartItem: ICartItem) => {
     const items = [...cart];
-    const existingItem = items.find((i) => i.prodct.id === cartItem.prodct.id);
+    const existingItem = items.find(
+      (i) => i.product.id === cartItem.product.id
+    );
 
     if (existingItem) {
       if (existingItem.quantity === 1) {
@@ -54,7 +58,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
   const productCount = (productId: string) => {
     const items = [...cart];
-    const existingItem = items.find((i) => i.prodct.id === productId);
+    const existingItem = items.find((i) => i.product.id === productId);
 
     if (existingItem) {
       return existingItem.quantity;
