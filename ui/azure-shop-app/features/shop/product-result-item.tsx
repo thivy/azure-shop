@@ -34,7 +34,7 @@ export const ProductResultItem: FC<IProp> = (props) => {
       </div>
       <Suspense fallback={<ProductVoteLoading />}>
         {/* @ts-expect-error Server Component */}
-        <ProductVote />
+        <ProductVote productId={_prop.product.id} />
       </Suspense>
     </Panel>
   );

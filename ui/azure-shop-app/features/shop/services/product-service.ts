@@ -1,11 +1,7 @@
+"use server";
 import { fetcher } from "@features/core/fetch/app-fetch";
 import { cache } from "react";
 import { IProductResponse, IResponse, IVote } from "./models";
-
-export const preloadProductsPageData = () => {
-  void getProductVotes();
-  void getProducts();
-};
 
 export const getProducts = cache(
   async (page: number = 1): Promise<IProductResponse> => {
@@ -20,6 +16,18 @@ export const getProductVotes = cache(async (): Promise<IResponse<IVote>> => {
   const res = await fetcher(api);
   return res.json();
 });
+
+export const addProductVotes = async (
+  productId: string,
+  vote: string
+): Promise<void> => {
+  const _vote = { product: productId, vote: vote };
+  const api = `${process.env.CMS_API}/api/collections/votes/records`;
+  const res = await fetcher(api, {
+    method: "POST",
+    body: JSON.stringify(_vote),
+  });
+};
 
 export const getFeaturedProducts = cache(
   async (): Promise<IProductResponse | null> => {

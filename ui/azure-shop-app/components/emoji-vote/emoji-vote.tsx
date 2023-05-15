@@ -6,15 +6,14 @@ import { FC, useState } from "react";
 interface IProp {
   count: number;
   emoji: string;
-  onClick?: () => void;
+  onClick?: (emoji: string) => void;
 }
 
 export const EmojiVote: FC<IProp> = (props) => {
   const [count, setCount] = useState(props.count);
 
-  const onVote = () => {
-    // const data = await voteForProduct(product);
-    setCount((e) => e + 1); // update the count
+  const onVote = async () => {
+    props.onClick?.(props.emoji);
   };
 
   return (

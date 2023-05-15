@@ -7,7 +7,7 @@ export default async function Pagination({
 }: {
   activePage: number;
 }) {
-  const data = await getProducts();
+  const data = await getProducts(activePage);
 
   const arr = new Array(data?.totalPages).fill(0).map((_, index) => index + 1);
 
@@ -20,6 +20,7 @@ export default async function Pagination({
       {data
         ? arr.map((value) => (
             <Link
+              key={value}
               className={`bg-purple-600/20 text-white rounded-md px-4 py-2 font-bold  hover:bg-purple-600/90 ${
                 activePage == value ? "bg-purple-600/90" : ""
               }`}

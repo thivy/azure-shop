@@ -21,7 +21,7 @@ export const PlaceOrder = () => {
       context.clearCart();
       router.push("/");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       setIsFetching(false);
     }

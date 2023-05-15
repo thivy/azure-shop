@@ -1,21 +1,30 @@
 import { EmojiVote } from "@components/emoji-vote/emoji-vote";
 import { uiDebug } from "@features/settings";
-import { getProductVotes } from "./services/product-service";
+import { addProductVotes, getProductVotes } from "./services/product-service";
 
-export const ProductVote = async () => {
+interface IProp {
+  productId: string;
+}
+
+export async function ProductVote(props: IProp) {
   const voteResponse = await getProductVotes();
   let up = voteResponse.items[0].count,
     heart = voteResponse.items[1].count,
     funny = voteResponse.items[2].count;
 
+  const addVote = async (emoji: string) => {
+    "use server";
+    await addProductVotes(props.productId, emoji);
+  };
+
   return (
     <div className={`flex gap-4 justify-between ${uiDebug(false)}`}>
-      <EmojiVote count={up} emoji="👍" />
-      <EmojiVote count={heart} emoji="🧡" />
-      <EmojiVote count={funny} emoji="🤣" />
+      <EmojiVote count={up} emoji="👍" onClick={addVote} />
+      <EmojiVote count={heart} emoji="🧡" onClick={addVote} />
+      <EmojiVote count={funny} emoji="🤣" onClick={addVote} />
     </div>
   );
-};
+}
 
 export const ProductVoteLoading = () => {
   return (
