@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "order_email_trigger": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7157"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 34006,
+      "useSSL": false
+    }
+  }
+}
