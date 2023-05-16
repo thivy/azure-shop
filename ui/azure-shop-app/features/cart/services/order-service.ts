@@ -6,7 +6,7 @@ import { IOrder } from "./models";
 
 const daprHost = "127.0.0.1";
 
-const addToTopic = async (orderId: string) => {
+const addToTopic = async (order: Order) => {
   const client = new DaprClient({
     communicationProtocol: CommunicationProtocolEnum.HTTP, // default
     daprHost: daprHost, // default
@@ -15,16 +15,18 @@ const addToTopic = async (orderId: string) => {
   await client.pubsub.publish(
     process.env.PUB_SUB_NAME,
     process.env.PUB_SUB_TOPIC,
-    orderId
+    order
   );
 };
 
 export const placeOrder = async (order: IOrder): Promise<void> => {
   const uuid = randomUUID();
+
   order.cart.forEach(async (item) => {
+    console.log(item);
     const _order = {
-      orderId: uuid,
-      productid: item.product.id,
+      orderid: uuid,
+      product: item.product.id,
       quantity: item.quantity,
       productname: item.product.name,
     };
@@ -34,5 +36,11 @@ export const placeOrder = async (order: IOrder): Promise<void> => {
       body: JSON.stringify(_order),
     });
   });
-  addToTopic(uuid);
+
+  addToTopic({ OrderId: uuid, Recipient: order.email });
 };
+
+interface Order {
+  OrderId: string;
+  Recipient: string;
+}

@@ -44,10 +44,10 @@ namespace order_email_trigger
         }
 
         [Function("EmailTrigger")]
-        public async Task Run([ServiceBusTrigger("order", Connection = "connectionstring")] OrderModel order)
+        public async Task Run([ServiceBusTrigger("order", Connection = "connectionstring")] QueueItem queueItem)
         {
-            await SendEmail(order);
-            _logger.LogInformation($"C# ServiceBus queue trigger function processed message: {order.OrderId}");
+            await SendEmail(queueItem.data);
+            _logger.LogInformation($"C# ServiceBus queue trigger function processed message: {queueItem.data.OrderId}");
         }
     }
 
@@ -56,4 +56,21 @@ namespace order_email_trigger
         public string OrderId { get; set; }
         public string Recipient { get; set; }
     }
+
+    public class QueueItem
+    {
+        public OrderModel data { get; set; }
+        public string datacontenttype { get; set; }
+        public string id { get; set; }
+        public string pubsubname { get; set; }
+        public string source { get; set; }
+        public string specversion { get; set; }
+        public string time { get; set; }
+        public string topic { get; set; }
+        public string traceid { get; set; }
+        public string traceparent { get; set; }
+        public string tracestate { get; set; }
+        public string type { get; set; }
+    }
+
 }
