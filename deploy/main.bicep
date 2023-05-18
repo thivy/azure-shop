@@ -1,57 +1,35 @@
-param location string = resourceGroup().location
+targetScope = 'subscription'
 
+@minLength(1)
+@maxLength(64)
+@description('Name of the the environment which is used to generate a short unqiue hash used in all resources.')
+param name string
 
-var appname = 'demo-shop-app'
+@minLength(1)
+@description('Primary location for all resources')
+param location string
 
-var environmentName = '${appname}-env'
+resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: '${name}-rg'
+  location: location
+}
 
-var appInsightsResName = '${appname}-ai'
-var logAnalyticsWorkspaceResName = '${appname}-logs'
-var serviceBusResName = appname 
+var resourceToken = toLower(uniqueString(subscription().id, name, location))
+var tags = {
+  'azd-env-name': name
+}
 
-module primaryResources 'primaryResources.bicep' = {
-  dependsOn: []
-  name: '${deployment().name}--primaryResources'
+module resources 'resources.bicep' = {
+  name: 'resources-${resourceToken}'
+  scope: resourceGroup
   params: {
+    name: name
     location: location
-    logAnalyticsWorkspaceResName: logAnalyticsWorkspaceResName
-    appInsightsResName: appInsightsResName
-    serviceBusResName: serviceBusResName
-  }
-}
-
-//Reference to AppInsights resource
-resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
-  name: appInsightsResName
-}
-
-//Reference to LogAnalytics resource
-resource logAnalyticsWorkspaceResource 'Microsoft.OperationalInsights/workspaces@2021-06-01' existing = {
-  name: logAnalyticsWorkspaceResName
-}
-
-//Reference to ServiceBus resource
-resource serviceBusResource 'Microsoft.ServiceBus/namespaces@2021-11-01' existing = {
-  name: serviceBusResName
-}
-
-
-//Build Svc Bus Connection String
-var listKeysEndpoint = '${serviceBusResource.id}/AuthorizationRules/RootManageSharedAccessKey'
-var sharedAccessKey = '${listKeys(listKeysEndpoint, serviceBusResource.apiVersion).primaryKey}'
-var serviceBusConStringValue = 'Endpoint=sb://${serviceBusResName}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${sharedAccessKey}'
-
-// Container Apps Environment 
-module environment 'acaEnvironment.bicep' = {
-  dependsOn: [
-    primaryResources
-  ]
-  name: '${deployment().name}--acaenvironment'
-  params: {
-    acaEnvironmentName: environmentName
-    location: location
-    instrumentationKey: appInsightsResource.properties.InstrumentationKey
-    logAnalyticsWorkspaceCustomerId: primaryResources.outputs.logAnalyticsWorkspaceCustomerId
-    logAnalyticsWorkspacePrimarySharedKey: listKeys(logAnalyticsWorkspaceResource.id, logAnalyticsWorkspaceResource.apiVersion).primarySharedKey
+    resourceToken: resourceToken
+    shopUIImageName: ''
+    shopCMSImageName: ''
+    shopEmailRenderImageName: ''
+    shopOrderTriggerImageName: ''
+    tags: tags
   }
 }
