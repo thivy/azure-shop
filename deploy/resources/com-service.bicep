@@ -1,5 +1,5 @@
 param resourceToken string
-param location string
+param dataLocation string
 param tags object
 
 resource commService 'Microsoft.Communication/communicationServices@2023-03-31' = {
@@ -7,12 +7,11 @@ resource commService 'Microsoft.Communication/communicationServices@2023-03-31' 
   location: 'global'
   tags: tags
   properties: {
-    dataLocation:'australia'
+    dataLocation: dataLocation
     linkedDomains: [
       emailDomain.id
     ]
   }
-
 }
 
 resource commEmailService 'Microsoft.Communication/emailServices@2023-03-31' = {
@@ -21,7 +20,8 @@ resource commEmailService 'Microsoft.Communication/emailServices@2023-03-31' = {
   location: 'global'
   tags: tags
   properties: {
-    dataLocation:'australia'
+    dataLocation: dataLocation
+
   }
 }
 
@@ -34,4 +34,4 @@ resource emailDomain 'Microsoft.Communication/emailServices/domains@2023-03-31' 
   }
 }
 
-
+output FromSenderDomain string = emailDomain.properties.fromSenderDomain

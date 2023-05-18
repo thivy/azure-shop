@@ -14,6 +14,8 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 
+param dataLocation string
+
 var resourceToken = toLower(uniqueString(subscription().id, name, location))
 var tags = {
   'azd-env-name': name
@@ -25,6 +27,7 @@ module resources 'resources.bicep' = {
   params: {
     name: name
     location: location
+    dataLocation: dataLocation
     resourceToken: resourceToken
     shopUIImageName: ''
     shopCMSImageName: ''

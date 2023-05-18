@@ -1,5 +1,6 @@
 param name string
 param location string
+param dataLocation string
 param resourceToken string
 param tags object
 param shopUIImageName string = ''
@@ -95,6 +96,7 @@ module shopAppOrderTriggerResources 'container-apps/shop-app-order-trigger.bicep
     location: location
     imageName: shopOrderTriggerImageName != '' ? shopOrderTriggerImageName : 'nginx:latest'
     daprEmailRenderId:shopAppEmailRenderResources.outputs.EMAIL_DAPR_ID
+    fromSenderEmailDomain: shopAppEmailResources.outputs.FromSenderDomain
   }
   dependsOn: [
     containerAppsResources
@@ -117,7 +119,7 @@ module logAnalyticsResources 'resources/loganalytics.bicep' = {
 module shopAppEmailResources 'resources/com-service.bicep' = {
   name: 'shop-app-email-resources'
   params: {
-    location: location
+    dataLocation: dataLocation
     resourceToken: resourceToken
     tags: tags
   }

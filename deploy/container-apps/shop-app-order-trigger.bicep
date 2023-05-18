@@ -9,6 +9,7 @@ param location string
 
 param imageName string
 param daprEmailRenderId string
+param fromSenderEmailDomain string
 
 var resourceToken = toLower(uniqueString(subscription().id, name, location))
 var tags = {
@@ -88,11 +89,11 @@ resource checkout 'Microsoft.App/containerApps@2022-03-01' = {
             }
             {
               name:'AZURE_COMMUNICATION_CONNECTION'
-              value:'${listKeys('${comService.id}/AuthorizationRules/RootManageSharedAccessKey', comService.apiVersion).primaryConnectionString}'
+              value:'${listKeys('${comService.id}', comService.apiVersion).primaryConnectionString}'
             }
             {
               name:'AZURE_COMMUNICATION_SENDER_EMAIL'
-              value:'donotreply@210c89ee-6bc0-499e-b797-a975a60fe0cc.azurecomm.net'
+              value:'donotreply@${fromSenderEmailDomain}'
             }
             {
               name:'ORDER_EMAIL_TEMPLATE_API'
