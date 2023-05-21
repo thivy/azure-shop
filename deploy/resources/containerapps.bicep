@@ -26,7 +26,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
   }
 
   resource daprComponent 'daprComponents' = {
-    name: 'orderpubsub'
+    name: 'servicebus-queue'
     properties: {
       componentType: 'pubsub.azure.servicebus'
       version: 'v1'
@@ -41,12 +41,10 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
           name: 'connectionString'
           secretRef: 'sb-root-connectionstring'
         }
-        {
-          name: 'consumerID'
-          value: 'order'
-        }
       ]
-      scopes: []
+      scopes: [
+        'shop-app-ui'
+      ]
     }
   }
 }
