@@ -9,36 +9,32 @@ param location string
 
 param imageName string
 
-var resourceToken = toLower(uniqueString(subscription().id, name, location))
-var tags = {
-  'azd-env-name': name
-}
+param containerAppEnvName string
+param containerRegistryName string
+param appInsightsName string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
-  name: 'cae-${resourceToken}'
+  name: containerAppEnvName
 }
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' existing = {
-  name: 'contreg${resourceToken}'
+  name: containerRegistryName
 }
 
 resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
-  name: 'appi-${resourceToken}'
+  name: appInsightsName
 }
 
 resource shopCMS 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'shop-app-cms'
+  name: name
   location: location
-  tags: union(tags, {
-      'azd-service-name': 'cms'
-    })
   properties: {
     managedEnvironmentId: containerAppsEnvironment.id
     configuration: {
       activeRevisionsMode: 'single'
       dapr: {
         enabled: true
-        appId: 'shop-app-cms'
+        appId: name
         appProtocol: 'http'
       }
       ingress: {
@@ -64,7 +60,7 @@ resource shopCMS 'Microsoft.App/containerApps@2022-03-01' = {
       containers: [
         {
           image: imageName
-          name: 'shop-app-cms'
+          name: name
           env: [
             {
               name: 'APPINSIGHTS_INSTRUMENTATIONKEY'

@@ -1,11 +1,10 @@
-param resourceToken string
+param name string
+param commServiceEmailName string
 param dataLocation string
-param tags object
 
 resource commService 'Microsoft.Communication/communicationServices@2023-03-31' = {
-  name: 'comm-service-${resourceToken}'
+  name: name
   location: 'global'
-  tags: tags
   properties: {
     dataLocation: dataLocation
     linkedDomains: [
@@ -15,13 +14,10 @@ resource commService 'Microsoft.Communication/communicationServices@2023-03-31' 
 }
 
 resource commEmailService 'Microsoft.Communication/emailServices@2023-03-31' = {
-
-  name: 'comm-email-${resourceToken}'
+  name: commServiceEmailName
   location: 'global'
-  tags: tags
   properties: {
     dataLocation: dataLocation
-
   }
 }
 

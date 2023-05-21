@@ -1,4 +1,4 @@
-param resourceToken string
+param name string
 param location string
 param skuName string = 'Basic'
 param topicName string = 'order'
@@ -6,7 +6,7 @@ param tags object
 
 
 resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2021-11-01' = {
-  name: 'sb-${resourceToken}'
+  name: name
   location: location
   tags: tags
   sku: {

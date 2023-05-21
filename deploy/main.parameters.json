@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "name": {
-      "value": "shop-app-thivy"
+      "value": "shop-app"
     },
     "location": {
       "value": "australiaeast"

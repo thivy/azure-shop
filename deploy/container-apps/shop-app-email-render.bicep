@@ -1,45 +1,45 @@
 @minLength(1)
 @maxLength(64)
-@description('Name of the the environment which is used to generate a short unqiue hash used in all resources.')
 param name string
 
 @minLength(1)
-@description('Primary location for all resources')
 param location string
 
 param imageName string
 param cmsDaprId string
 
-var resourceToken = toLower(uniqueString(subscription().id, name, location))
-var tags = {
-  'azd-env-name': name
-}
+
+param containerAppEnvName string
+param containerRegistryName string
+param appInsightsName string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
-  name: 'cae-${resourceToken}'
+  name: containerAppEnvName
 }
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' existing = {
-  name: 'contreg${resourceToken}'
+  name: containerRegistryName
 }
 
 resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
-  name: 'appi-${resourceToken}'
+  name: appInsightsName
 }
 
 resource emailRender 'Microsoft.App/containerApps@2022-03-01' = {
-  name: 'shop-app-email-render'
+  name: name
   location: location
-  tags: union(tags, {
-      'azd-service-name': 'email-render'
-    })
   properties: {
     managedEnvironmentId: containerAppsEnvironment.id
     configuration: {
       activeRevisionsMode: 'single'
+      ingress: {
+        external:false
+        targetPort:3000
+        transport: 'auto'
+      }
       dapr: {
         enabled: true
-        appId: 'shop-app-email-render'
+        appId: name
         appProtocol: 'http'
       }
       secrets: [
@@ -60,7 +60,7 @@ resource emailRender 'Microsoft.App/containerApps@2022-03-01' = {
       containers: [
         {
           image: imageName
-          name: 'shop-app-email-render'
+          name: name
           env: [
             {
               name: 'APPINSIGHTS_INSTRUMENTATIONKEY'

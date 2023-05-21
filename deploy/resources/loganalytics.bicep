@@ -1,11 +1,9 @@
+param name string
 param location string
-param resourceToken string
-param tags object
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
-  name: 'log-${resourceToken}'
+  name: name
   location: location
-  tags: tags
   properties: any({
     retentionInDays: 30
     features: {

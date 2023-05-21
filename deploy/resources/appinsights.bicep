@@ -1,9 +1,9 @@
-param resourceToken string
+param name string
 param location string
 param tags object
 
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
-  name: 'appi-${resourceToken}'
+  name: name
   location: location
   tags: tags
   kind: 'web'

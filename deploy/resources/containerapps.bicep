@@ -1,18 +1,21 @@
+param name string
+param containerRegistryName string
 param location string
-param resourceToken string
 param tags object
 
+param servicebusName string
+param logAnalyticName string
 
 resource servicebus 'Microsoft.ServiceBus/namespaces@2021-11-01' existing = {
-  name: 'sb-${resourceToken}'
+  name: servicebusName
 }
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' existing = {
-  name: 'log-${resourceToken}'
+  name: logAnalyticName
 }
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
-  name: 'cae-${resourceToken}'
+  name: name
   location: location
   tags: tags
   properties: {
@@ -50,7 +53,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
 }
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = {
-  name: 'contreg${resourceToken}'
+  name: containerRegistryName
   location: location
   tags: tags
   sku: {

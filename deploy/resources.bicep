@@ -8,12 +8,31 @@ param shopCMSImageName string = ''
 param shopEmailRenderImageName string = ''
 param shopOrderTriggerImageName string = ''
 
+var containerAppEnvName = '${name}-app-env-${resourceToken}'
+var containerRegistryName = '${replace(name, '-', '')}registry${resourceToken}'
+var logAnalyticName = '${name}-log-${resourceToken}'
+var appInsightsName = '${name}-app-insights-${resourceToken}'
+
+var serviceBusName = '${name}-service-bus-${resourceToken}'
+
+// Communication Services
+var communicationServicesName = '${name}-comm-service-${resourceToken}'
+var communicationServicesEmailName = '${name}-comm-service-email-${resourceToken}'
+
+var containerAppShopAppUIName = '${name}-ui'
+var containerAppShopAppCMSName = '${name}-cms'
+var containerAppShopAppEmailRenderName = '${name}-email-render'
+var containerAppShopAppOrderTriggerName = '${name}-order-trigger'
+
 module containerAppsResources 'resources/containerapps.bicep' = {
   name: 'containerapps-resources'
   params: {
+    name: containerAppEnvName
+    containerRegistryName: containerRegistryName
+    servicebusName: serviceBusName
+    logAnalyticName: logAnalyticName
     location: location
     tags: tags
-    resourceToken: resourceToken
   }
 
   dependsOn: [
@@ -27,9 +46,9 @@ module containerAppsResources 'resources/containerapps.bicep' = {
 module serviceBusResources 'resources/servicebus.bicep' = {
   name: 'sb-resources'
   params: {
+    name: serviceBusName
     location: location
     tags: tags
-    resourceToken: resourceToken
     skuName: 'Standard'
   }
 }
@@ -37,16 +56,19 @@ module serviceBusResources 'resources/servicebus.bicep' = {
 module appInsightsResources './resources/appinsights.bicep' = {
   name: 'appinsights-resources'
   params: {
+    name: appInsightsName
     location: location
     tags: tags
-    resourceToken: resourceToken
   }
 }
 
 module shopAppUIResources 'container-apps/shop-app-ui.bicep' = {
   name: 'shop-app-ui-resources'
   params: {
-    name: name
+    name: containerAppShopAppUIName
+    appInsightsName: appInsightsName
+    containerAppEnvName: containerAppEnvName
+    containerRegistryName: containerRegistryName
     location: location
     imageName: shopUIImageName != '' ? shopUIImageName : 'nginx:latest'
     cmsUrl:shopAppCMSResources.outputs.CMS_URL
@@ -63,7 +85,10 @@ module shopAppUIResources 'container-apps/shop-app-ui.bicep' = {
 module shopAppCMSResources 'container-apps/shop-app-cms.bicep' = {
   name: 'shop-app-cms-resources'
   params: {
-    name: name
+    name: containerAppShopAppCMSName
+    appInsightsName: appInsightsName
+    containerAppEnvName: containerAppEnvName
+    containerRegistryName: containerRegistryName
     location: location
     imageName: shopCMSImageName != '' ? shopCMSImageName : 'nginx:latest'
   }
@@ -77,7 +102,10 @@ module shopAppCMSResources 'container-apps/shop-app-cms.bicep' = {
 module shopAppEmailRenderResources 'container-apps/shop-app-email-render.bicep' = {
   name: 'shop-app-email-render-resources'
   params: {
-    name: name
+    name: containerAppShopAppEmailRenderName
+    appInsightsName: appInsightsName
+    containerAppEnvName: containerAppEnvName
+    containerRegistryName: containerRegistryName
     location: location
     imageName: shopEmailRenderImageName != '' ? shopEmailRenderImageName : 'nginx:latest'
     cmsDaprId: shopAppCMSResources.outputs.CMS_DAPR_ID
@@ -92,7 +120,12 @@ module shopAppEmailRenderResources 'container-apps/shop-app-email-render.bicep' 
 module shopAppOrderTriggerResources 'container-apps/shop-app-order-trigger.bicep' = {
   name: 'shop-app-order-trigger-resources'
   params: {
-    name: name
+    name: containerAppShopAppOrderTriggerName
+    appInsightsName: appInsightsName
+    communicationServicesName: communicationServicesName
+    containerAppEnvName: containerAppEnvName
+    containerRegistryName: containerRegistryName
+    serviceBusName: serviceBusName
     location: location
     imageName: shopOrderTriggerImageName != '' ? shopOrderTriggerImageName : 'nginx:latest'
     daprEmailRenderId:shopAppEmailRenderResources.outputs.EMAIL_DAPR_ID
@@ -109,9 +142,8 @@ module shopAppOrderTriggerResources 'container-apps/shop-app-order-trigger.bicep
 module logAnalyticsResources 'resources/loganalytics.bicep' = {
   name: 'loganalytics-resources'
   params: {
+    name: logAnalyticName
     location: location
-    tags: tags
-    resourceToken: resourceToken
   }
 }
 
@@ -119,8 +151,8 @@ module logAnalyticsResources 'resources/loganalytics.bicep' = {
 module shopAppEmailResources 'resources/com-service.bicep' = {
   name: 'shop-app-email-resources'
   params: {
+    name: communicationServicesName
     dataLocation: dataLocation
-    resourceToken: resourceToken
-    tags: tags
+    commServiceEmailName: communicationServicesEmailName
   }
 }
