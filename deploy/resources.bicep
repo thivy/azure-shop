@@ -31,6 +31,7 @@ module containerAppsResources 'resources/containerapps.bicep' = {
     containerRegistryName: containerRegistryName
     servicebusName: serviceBusName
     logAnalyticName: logAnalyticName
+    appInsightsName: appInsightsName
     location: location
     tags: tags
   }

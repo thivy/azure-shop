@@ -5,6 +5,8 @@ param tags object
 
 param servicebusName string
 param logAnalyticName string
+param appInsightsName string
+
 
 resource servicebus 'Microsoft.ServiceBus/namespaces@2021-11-01' existing = {
   name: servicebusName
@@ -12,6 +14,11 @@ resource servicebus 'Microsoft.ServiceBus/namespaces@2021-11-01' existing = {
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' existing = {
   name: logAnalyticName
+}
+
+
+resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: appInsightsName
 }
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
@@ -26,6 +33,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
         sharedKey: logAnalyticsWorkspace.listKeys().primarySharedKey
       }
     }
+    daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
   }
 
   resource daprComponent 'daprComponents' = {
