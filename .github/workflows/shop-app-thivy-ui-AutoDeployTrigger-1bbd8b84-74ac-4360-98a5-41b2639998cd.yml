@@ -1,0 +1,42 @@
+name: Trigger auto deployment for shop-app-thivy-ui
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - 'ui/azure-shop-app/**'
+    - '.github/workflows/shop-app-thivy-ui-AutoDeployTrigger-1bbd8b84-74ac-4360-98a5-41b2639998cd.yml'
+
+  # Allow mannually trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.SHOPAPPTHIVYUI_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }}/ui/azure-shop-app 
+          registryUrl: shopappthivyregistrylqgvyfuob3igc.azurecr.io
+          registryUsername: ${{ secrets.SHOPAPPTHIVYUI_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.SHOPAPPTHIVYUI_REGISTRY_PASSWORD }}
+          containerAppName: shop-app-thivy-ui
+          resourceGroup: shop-app-thivy-rg
+          imageToBuild: shopappthivyregistrylqgvyfuob3igc.azurecr.io/shop-app-thivy-ui:${{ github.sha }}
+          dockerfilePath: Dockerfile
+
+     
+
