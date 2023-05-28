@@ -28,7 +28,7 @@ jobs:
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v1
         with:
-          appSourcePath: ${{ github.workspace }}/ui/email-render #todo this should be renamed to email-render
+          appSourcePath: ${{ github.workspace }}/ui/email-render
           registryUrl: ${{secrets.SHOPAPP_REGISTRY_URL}}
           registryUsername: ${{ secrets.SHOPAPP_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.SHOPAPP_REGISTRY_PASSWORD }}
