@@ -29,10 +29,10 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}/ui/azure-shop-app
-          registryUrl: ${{SHOPAPP_REGISTRY_URL}}
+          registryUrl: ${{secrets.SHOPAPP_REGISTRY_URL}}
           registryUsername: ${{ secrets.SHOPAPP_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.SHOPAPP_REGISTRY_PASSWORD }}
           containerAppName: shop-app-ui
-          resourceGroup: ${{SHOPAPP_RESOURCE_GROUP}}
-          imageToBuild: ${{SHOPAPP_REGISTRY_URL}}/shop-app-ui:${{ github.sha }}
+          resourceGroup: ${{secrets.SHOPAPP_RESOURCE_GROUP}}
+          imageToBuild: ${{secrets.SHOPAPP_REGISTRY_URL}}/shop-app-ui:${{ github.sha }}
           dockerfilePath: Dockerfile
