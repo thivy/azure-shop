@@ -1,0 +1,38 @@
+name: Trigger auto deployment for order trigger
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: [main]
+    paths:
+      - "backdround-jobs/order-email-trigger/**"
+      - ".github/workflows/azure-shop-app-order-trigger.yml"
+
+  # Allow mannually trigger
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.SHOPAPP_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }}/backdround-jobs/order-email-trigger
+          registryUrl: ${{secrets.SHOPAPP_REGISTRY_URL}}
+          registryUsername: ${{ secrets.SHOPAPP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.SHOPAPP_REGISTRY_PASSWORD }}
+          containerAppName: ${{secrets.SHOPAPP_NAME}}-order-trigger
+          resourceGroup: ${{secrets.SHOPAPP_RESOURCE_GROUP}}
+          imageToBuild: ${{secrets.SHOPAPP_REGISTRY_URL}}/${{secrets.SHOPAPP_NAME}}-order-trigger:${{ github.sha }}
+          dockerfilePath: Dockerfile

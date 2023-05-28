@@ -1,4 +1,4 @@
-name: Trigger auto deployment for shop-app-thivy-ui
+name: Trigger auto deployment for shop ui
 
 # When this action will be executed
 on:
@@ -7,7 +7,7 @@ on:
     branches: [main]
     paths:
       - "ui/azure-shop-app/**"
-      - ".github/workflows/azure-shop-app.yml"
+      - ".github/workflows/azure-shop-app-ui.yml"
 
   # Allow mannually trigger
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
           registryUrl: ${{secrets.SHOPAPP_REGISTRY_URL}}
           registryUsername: ${{ secrets.SHOPAPP_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.SHOPAPP_REGISTRY_PASSWORD }}
-          containerAppName: shop-app-ui
+          containerAppName: ${{secrets.SHOPAPP_NAME}}-ui
           resourceGroup: ${{secrets.SHOPAPP_RESOURCE_GROUP}}
-          imageToBuild: ${{secrets.SHOPAPP_REGISTRY_URL}}/shop-app-ui:${{ github.sha }}
+          imageToBuild: ${{secrets.SHOPAPP_REGISTRY_URL}}/${{secrets.SHOPAPP_NAME}}-ui:${{ github.sha }}
           dockerfilePath: Dockerfile
