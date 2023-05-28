@@ -1,0 +1,1231 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.17.1.54307",
+      "templateHash": "12185486445893615155"
+    }
+  },
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the the environment which is used to generate a short unqiue hash used in all resources."
+      },
+      "maxLength": 64,
+      "minLength": 1
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Primary location for all resources"
+      },
+      "minLength": 1
+    },
+    "dataLocation": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "resourceToken": "[toLower(uniqueString(subscription().id, parameters('name'), parameters('location')))]",
+    "tags": {
+      "azd-env-name": "[parameters('name')]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2021-04-01",
+      "name": "[format('{0}-rg', parameters('name'))]",
+      "location": "[parameters('location')]"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "[format('resources-{0}', variables('resourceToken'))]",
+      "resourceGroup": "[format('{0}-rg', parameters('name'))]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "name": {
+            "value": "[parameters('name')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "dataLocation": {
+            "value": "[parameters('dataLocation')]"
+          },
+          "resourceToken": {
+            "value": "[variables('resourceToken')]"
+          },
+          "shopUIImageName": {
+            "value": ""
+          },
+          "shopCMSImageName": {
+            "value": ""
+          },
+          "shopEmailRenderImageName": {
+            "value": ""
+          },
+          "shopOrderTriggerImageName": {
+            "value": ""
+          },
+          "tags": {
+            "value": "[variables('tags')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.17.1.54307",
+              "templateHash": "9512600705019251570"
+            }
+          },
+          "parameters": {
+            "name": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "dataLocation": {
+              "type": "string"
+            },
+            "resourceToken": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "object"
+            },
+            "shopUIImageName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "shopCMSImageName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "shopEmailRenderImageName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "shopOrderTriggerImageName": {
+              "type": "string",
+              "defaultValue": ""
+            }
+          },
+          "variables": {
+            "containerAppEnvName": "[format('{0}-app-env-{1}', parameters('name'), parameters('resourceToken'))]",
+            "containerRegistryName": "[format('{0}registry{1}', replace(parameters('name'), '-', ''), parameters('resourceToken'))]",
+            "logAnalyticName": "[format('{0}-log-{1}', parameters('name'), parameters('resourceToken'))]",
+            "appInsightsName": "[format('{0}-app-insights-{1}', parameters('name'), parameters('resourceToken'))]",
+            "serviceBusName": "[format('{0}-service-bus-{1}', parameters('name'), parameters('resourceToken'))]",
+            "communicationServicesName": "[format('{0}-comm-service-{1}', parameters('name'), parameters('resourceToken'))]",
+            "communicationServicesEmailName": "[format('{0}-comm-service-email-{1}', parameters('name'), parameters('resourceToken'))]",
+            "containerAppShopAppUIName": "[format('{0}-ui', parameters('name'))]",
+            "containerAppShopAppCMSName": "[format('{0}-cms', parameters('name'))]",
+            "containerAppShopAppEmailRenderName": "[format('{0}-email-render', parameters('name'))]",
+            "containerAppShopAppOrderTriggerName": "[format('{0}-order-trigger', parameters('name'))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "containerapps-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('containerAppEnvName')]"
+                  },
+                  "containerRegistryName": {
+                    "value": "[variables('containerRegistryName')]"
+                  },
+                  "containerAppShopAppUIName": {
+                    "value": "[variables('containerAppShopAppUIName')]"
+                  },
+                  "servicebusName": {
+                    "value": "[variables('serviceBusName')]"
+                  },
+                  "logAnalyticName": {
+                    "value": "[variables('logAnalyticName')]"
+                  },
+                  "appInsightsName": {
+                    "value": "[variables('appInsightsName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "tags": {
+                    "value": "[parameters('tags')]"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "14138562960478865843"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "containerRegistryName": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": "string"
+                    },
+                    "tags": {
+                      "type": "object"
+                    },
+                    "servicebusName": {
+                      "type": "string"
+                    },
+                    "logAnalyticName": {
+                      "type": "string"
+                    },
+                    "appInsightsName": {
+                      "type": "string"
+                    },
+                    "containerAppShopAppUIName": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.App/managedEnvironments/daprComponents",
+                      "apiVersion": "2022-03-01",
+                      "name": "[format('{0}/{1}', parameters('name'), 'servicebus-queue')]",
+                      "properties": {
+                        "componentType": "pubsub.azure.servicebus",
+                        "version": "v1",
+                        "secrets": [
+                          {
+                            "name": "sb-root-connectionstring",
+                            "value": "[format('{0};EntityPath=orders', listKeys(format('{0}/AuthorizationRules/RootManageSharedAccessKey', resourceId('Microsoft.ServiceBus/namespaces', parameters('servicebusName'))), '2021-11-01').primaryConnectionString)]"
+                          }
+                        ],
+                        "metadata": [
+                          {
+                            "name": "connectionString",
+                            "secretRef": "sb-root-connectionstring"
+                          }
+                        ],
+                        "scopes": [
+                          "[parameters('containerAppShopAppUIName')]"
+                        ]
+                      },
+                      "dependsOn": [
+                        "[resourceId('Microsoft.App/managedEnvironments', parameters('name'))]"
+                      ]
+                    },
+                    {
+                      "type": "Microsoft.App/managedEnvironments",
+                      "apiVersion": "2022-03-01",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "tags": "[parameters('tags')]",
+                      "properties": {
+                        "appLogsConfiguration": {
+                          "destination": "log-analytics",
+                          "logAnalyticsConfiguration": {
+                            "customerId": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticName')), '2021-06-01').customerId]",
+                            "sharedKey": "[listKeys(resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticName')), '2021-06-01').primarySharedKey]"
+                          }
+                        },
+                        "daprAIInstrumentationKey": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsName')), '2020-02-02').InstrumentationKey]"
+                      }
+                    },
+                    {
+                      "type": "Microsoft.ContainerRegistry/registries",
+                      "apiVersion": "2022-02-01-preview",
+                      "name": "[parameters('containerRegistryName')]",
+                      "location": "[parameters('location')]",
+                      "tags": "[parameters('tags')]",
+                      "sku": {
+                        "name": "Basic"
+                      },
+                      "properties": {
+                        "adminUserEnabled": true,
+                        "anonymousPullEnabled": false,
+                        "dataEndpointEnabled": false,
+                        "encryption": {
+                          "status": "disabled"
+                        },
+                        "networkRuleBypassOptions": "AzureServices",
+                        "publicNetworkAccess": "Enabled",
+                        "zoneRedundancy": "Disabled"
+                      }
+                    }
+                  ],
+                  "outputs": {
+                    "AZURE_CONTAINER_REGISTRY_ENDPOINT": {
+                      "type": "string",
+                      "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), '2022-02-01-preview').loginServer]"
+                    },
+                    "AZURE_CONTAINER_REGISTRY_NAME": {
+                      "type": "string",
+                      "value": "[parameters('containerRegistryName')]"
+                    }
+                  }
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'appinsights-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'loganalytics-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'sb-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'shop-app-email-resources')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "sb-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('serviceBusName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "tags": {
+                    "value": "[parameters('tags')]"
+                  },
+                  "skuName": {
+                    "value": "Standard"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "15886244739482151517"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": "string"
+                    },
+                    "skuName": {
+                      "type": "string",
+                      "defaultValue": "Basic"
+                    },
+                    "topicName": {
+                      "type": "string",
+                      "defaultValue": "order"
+                    },
+                    "tags": {
+                      "type": "object"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.ServiceBus/namespaces/queues",
+                      "apiVersion": "2021-11-01",
+                      "name": "[format('{0}/{1}', parameters('name'), parameters('topicName'))]",
+                      "properties": {
+                        "deadLetteringOnMessageExpiration": true,
+                        "maxDeliveryCount": 3
+                      },
+                      "dependsOn": [
+                        "[resourceId('Microsoft.ServiceBus/namespaces', parameters('name'))]"
+                      ]
+                    },
+                    {
+                      "type": "Microsoft.ServiceBus/namespaces",
+                      "apiVersion": "2021-11-01",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "tags": "[parameters('tags')]",
+                      "sku": {
+                        "name": "[parameters('skuName')]",
+                        "tier": "[parameters('skuName')]"
+                      }
+                    }
+                  ],
+                  "outputs": {
+                    "SERVICEBUS_ENDPOINT": {
+                      "type": "string",
+                      "value": "[reference(resourceId('Microsoft.ServiceBus/namespaces', parameters('name')), '2021-11-01').serviceBusEndpoint]"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "appinsights-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('appInsightsName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "tags": {
+                    "value": "[parameters('tags')]"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "13270022639472049679"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": "string"
+                    },
+                    "tags": {
+                      "type": "object"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.Insights/components",
+                      "apiVersion": "2020-02-02",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "tags": "[parameters('tags')]",
+                      "kind": "web",
+                      "properties": {
+                        "Application_Type": "web"
+                      }
+                    }
+                  ],
+                  "outputs": {
+                    "APPINSIGHTS_INSTRUMENTATIONKEY": {
+                      "type": "string",
+                      "value": "[reference(resourceId('Microsoft.Insights/components', parameters('name')), '2020-02-02').InstrumentationKey]"
+                    },
+                    "APPINSIGHTS_CONNECTION_STRING": {
+                      "type": "string",
+                      "value": "[reference(resourceId('Microsoft.Insights/components', parameters('name')), '2020-02-02').ConnectionString]"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "shop-app-ui-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('containerAppShopAppUIName')]"
+                  },
+                  "appInsightsName": {
+                    "value": "[variables('appInsightsName')]"
+                  },
+                  "containerAppEnvName": {
+                    "value": "[variables('containerAppEnvName')]"
+                  },
+                  "containerRegistryName": {
+                    "value": "[variables('containerRegistryName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "imageName": "[if(not(equals(parameters('shopUIImageName'), '')), createObject('value', parameters('shopUIImageName')), createObject('value', 'nginx:latest'))]",
+                  "cmsUrl": {
+                    "value": "[reference(resourceId('Microsoft.Resources/deployments', 'shop-app-cms-resources'), '2022-09-01').outputs.CMS_URL.value]"
+                  },
+                  "cmsDaprId": {
+                    "value": "[reference(resourceId('Microsoft.Resources/deployments', 'shop-app-cms-resources'), '2022-09-01').outputs.CMS_DAPR_ID.value]"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "3371243785917683725"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string",
+                      "metadata": {
+                        "description": "Name of the the environment which is used to generate a short unqiue hash used in all resources."
+                      },
+                      "maxLength": 64,
+                      "minLength": 1
+                    },
+                    "location": {
+                      "type": "string",
+                      "metadata": {
+                        "description": "Primary location for all resources"
+                      },
+                      "minLength": 1
+                    },
+                    "imageName": {
+                      "type": "string"
+                    },
+                    "cmsUrl": {
+                      "type": "string"
+                    },
+                    "cmsDaprId": {
+                      "type": "string"
+                    },
+                    "containerAppEnvName": {
+                      "type": "string"
+                    },
+                    "containerRegistryName": {
+                      "type": "string"
+                    },
+                    "appInsightsName": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.App/containerApps",
+                      "apiVersion": "2022-03-01",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "properties": {
+                        "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments', parameters('containerAppEnvName'))]",
+                        "configuration": {
+                          "activeRevisionsMode": "single",
+                          "dapr": {
+                            "enabled": true,
+                            "appId": "[parameters('name')]",
+                            "appProtocol": "http"
+                          },
+                          "ingress": {
+                            "external": true,
+                            "targetPort": 3000,
+                            "transport": "auto"
+                          },
+                          "secrets": [
+                            {
+                              "name": "registry-password",
+                              "value": "[listCredentials(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), '2022-02-01-preview').passwords[0].value]"
+                            }
+                          ],
+                          "registries": [
+                            {
+                              "server": "[format('{0}.azurecr.io', parameters('containerRegistryName'))]",
+                              "username": "[parameters('containerRegistryName')]",
+                              "passwordSecretRef": "registry-password"
+                            }
+                          ]
+                        },
+                        "template": {
+                          "containers": [
+                            {
+                              "image": "[parameters('imageName')]",
+                              "name": "[parameters('name')]",
+                              "env": [
+                                {
+                                  "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                  "value": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsName')), '2020-02-02').InstrumentationKey]"
+                                },
+                                {
+                                  "name": "CMS_API",
+                                  "value": "[format('http://localhost:3500/v1.0/invoke/{0}/method', parameters('cmsDaprId'))]"
+                                },
+                                {
+                                  "name": "IMAGE_API",
+                                  "value": "[format('{0}/api/files', parameters('cmsUrl'))]"
+                                },
+                                {
+                                  "name": "PUB_SUB_NAME",
+                                  "value": "servicebus-queue"
+                                },
+                                {
+                                  "name": "PUB_SUB_TOPIC",
+                                  "value": "order"
+                                }
+                              ]
+                            }
+                          ],
+                          "scale": {
+                            "minReplicas": 1,
+                            "maxReplicas": 10
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'appinsights-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'containerapps-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'sb-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'shop-app-cms-resources')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "shop-app-cms-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('containerAppShopAppCMSName')]"
+                  },
+                  "appInsightsName": {
+                    "value": "[variables('appInsightsName')]"
+                  },
+                  "containerAppEnvName": {
+                    "value": "[variables('containerAppEnvName')]"
+                  },
+                  "containerRegistryName": {
+                    "value": "[variables('containerRegistryName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "imageName": "[if(not(equals(parameters('shopCMSImageName'), '')), createObject('value', parameters('shopCMSImageName')), createObject('value', 'nginx:latest'))]"
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "9162456017010860158"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string",
+                      "metadata": {
+                        "description": "Name of the the environment which is used to generate a short unqiue hash used in all resources."
+                      },
+                      "maxLength": 64,
+                      "minLength": 1
+                    },
+                    "location": {
+                      "type": "string",
+                      "metadata": {
+                        "description": "Primary location for all resources"
+                      },
+                      "minLength": 1
+                    },
+                    "imageName": {
+                      "type": "string"
+                    },
+                    "containerAppEnvName": {
+                      "type": "string"
+                    },
+                    "containerRegistryName": {
+                      "type": "string"
+                    },
+                    "appInsightsName": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.App/containerApps",
+                      "apiVersion": "2022-03-01",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "properties": {
+                        "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments', parameters('containerAppEnvName'))]",
+                        "configuration": {
+                          "activeRevisionsMode": "single",
+                          "dapr": {
+                            "enabled": true,
+                            "appId": "[parameters('name')]",
+                            "appProtocol": "http"
+                          },
+                          "ingress": {
+                            "external": true,
+                            "targetPort": 7000,
+                            "transport": "auto"
+                          },
+                          "secrets": [
+                            {
+                              "name": "registry-password",
+                              "value": "[listCredentials(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), '2022-02-01-preview').passwords[0].value]"
+                            }
+                          ],
+                          "registries": [
+                            {
+                              "server": "[format('{0}.azurecr.io', parameters('containerRegistryName'))]",
+                              "username": "[parameters('containerRegistryName')]",
+                              "passwordSecretRef": "registry-password"
+                            }
+                          ]
+                        },
+                        "template": {
+                          "containers": [
+                            {
+                              "image": "[parameters('imageName')]",
+                              "name": "[parameters('name')]",
+                              "env": [
+                                {
+                                  "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                  "value": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsName')), '2020-02-02').InstrumentationKey]"
+                                }
+                              ]
+                            }
+                          ],
+                          "scale": {
+                            "minReplicas": 1,
+                            "maxReplicas": 1
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "outputs": {
+                    "CMS_URL": {
+                      "type": "string",
+                      "value": "[format('https://{0}', reference(resourceId('Microsoft.App/containerApps', parameters('name')), '2022-03-01').configuration.ingress.fqdn)]"
+                    },
+                    "CMS_DAPR_ID": {
+                      "type": "string",
+                      "value": "[reference(resourceId('Microsoft.App/containerApps', parameters('name')), '2022-03-01').configuration.dapr.appId]"
+                    }
+                  }
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'appinsights-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'containerapps-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'sb-resources')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "shop-app-email-render-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('containerAppShopAppEmailRenderName')]"
+                  },
+                  "appInsightsName": {
+                    "value": "[variables('appInsightsName')]"
+                  },
+                  "containerAppEnvName": {
+                    "value": "[variables('containerAppEnvName')]"
+                  },
+                  "containerRegistryName": {
+                    "value": "[variables('containerRegistryName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "imageName": "[if(not(equals(parameters('shopEmailRenderImageName'), '')), createObject('value', parameters('shopEmailRenderImageName')), createObject('value', 'nginx:latest'))]",
+                  "cmsDaprId": {
+                    "value": "[reference(resourceId('Microsoft.Resources/deployments', 'shop-app-cms-resources'), '2022-09-01').outputs.CMS_DAPR_ID.value]"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "5624237794538048398"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string",
+                      "maxLength": 64,
+                      "minLength": 1
+                    },
+                    "location": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "imageName": {
+                      "type": "string"
+                    },
+                    "cmsDaprId": {
+                      "type": "string"
+                    },
+                    "containerAppEnvName": {
+                      "type": "string"
+                    },
+                    "containerRegistryName": {
+                      "type": "string"
+                    },
+                    "appInsightsName": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.App/containerApps",
+                      "apiVersion": "2022-03-01",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "properties": {
+                        "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments', parameters('containerAppEnvName'))]",
+                        "configuration": {
+                          "activeRevisionsMode": "single",
+                          "ingress": {
+                            "external": false,
+                            "targetPort": 3000,
+                            "transport": "auto"
+                          },
+                          "dapr": {
+                            "enabled": true,
+                            "appId": "[parameters('name')]",
+                            "appProtocol": "http"
+                          },
+                          "secrets": [
+                            {
+                              "name": "registry-password",
+                              "value": "[listCredentials(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), '2022-02-01-preview').passwords[0].value]"
+                            }
+                          ],
+                          "registries": [
+                            {
+                              "server": "[format('{0}.azurecr.io', parameters('containerRegistryName'))]",
+                              "username": "[parameters('containerRegistryName')]",
+                              "passwordSecretRef": "registry-password"
+                            }
+                          ]
+                        },
+                        "template": {
+                          "containers": [
+                            {
+                              "image": "[parameters('imageName')]",
+                              "name": "[parameters('name')]",
+                              "env": [
+                                {
+                                  "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                  "value": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsName')), '2020-02-02').InstrumentationKey]"
+                                },
+                                {
+                                  "name": "CMS_API",
+                                  "value": "[format('http://localhost:3500/v1.0/invoke/{0}/method', parameters('cmsDaprId'))]"
+                                }
+                              ]
+                            }
+                          ],
+                          "scale": {
+                            "minReplicas": 1,
+                            "maxReplicas": 1
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "outputs": {
+                    "EMAIL_DAPR_ID": {
+                      "type": "string",
+                      "value": "[reference(resourceId('Microsoft.App/containerApps', parameters('name')), '2022-03-01').configuration.dapr.appId]"
+                    }
+                  }
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'appinsights-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'containerapps-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'sb-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'shop-app-cms-resources')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "shop-app-order-trigger-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('containerAppShopAppOrderTriggerName')]"
+                  },
+                  "appInsightsName": {
+                    "value": "[variables('appInsightsName')]"
+                  },
+                  "communicationServicesName": {
+                    "value": "[variables('communicationServicesName')]"
+                  },
+                  "containerAppEnvName": {
+                    "value": "[variables('containerAppEnvName')]"
+                  },
+                  "containerRegistryName": {
+                    "value": "[variables('containerRegistryName')]"
+                  },
+                  "serviceBusName": {
+                    "value": "[variables('serviceBusName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "imageName": "[if(not(equals(parameters('shopOrderTriggerImageName'), '')), createObject('value', parameters('shopOrderTriggerImageName')), createObject('value', 'nginx:latest'))]",
+                  "daprEmailRenderId": {
+                    "value": "[reference(resourceId('Microsoft.Resources/deployments', 'shop-app-email-render-resources'), '2022-09-01').outputs.EMAIL_DAPR_ID.value]"
+                  },
+                  "fromSenderEmailDomain": {
+                    "value": "[reference(resourceId('Microsoft.Resources/deployments', 'shop-app-email-resources'), '2022-09-01').outputs.FromSenderDomain.value]"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "11645272503481980894"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string",
+                      "metadata": {
+                        "description": "Name of the the environment which is used to generate a short unqiue hash used in all resources."
+                      },
+                      "maxLength": 64,
+                      "minLength": 1
+                    },
+                    "location": {
+                      "type": "string",
+                      "metadata": {
+                        "description": "Primary location for all resources"
+                      },
+                      "minLength": 1
+                    },
+                    "imageName": {
+                      "type": "string"
+                    },
+                    "daprEmailRenderId": {
+                      "type": "string"
+                    },
+                    "fromSenderEmailDomain": {
+                      "type": "string"
+                    },
+                    "containerAppEnvName": {
+                      "type": "string"
+                    },
+                    "containerRegistryName": {
+                      "type": "string"
+                    },
+                    "appInsightsName": {
+                      "type": "string"
+                    },
+                    "serviceBusName": {
+                      "type": "string"
+                    },
+                    "communicationServicesName": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.App/containerApps",
+                      "apiVersion": "2022-03-01",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "properties": {
+                        "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments', parameters('containerAppEnvName'))]",
+                        "configuration": {
+                          "activeRevisionsMode": "single",
+                          "dapr": {
+                            "enabled": true,
+                            "appId": "[parameters('name')]",
+                            "appProtocol": "http"
+                          },
+                          "secrets": [
+                            {
+                              "name": "registry-password",
+                              "value": "[listCredentials(resourceId('Microsoft.ContainerRegistry/registries', parameters('containerRegistryName')), '2022-02-01-preview').passwords[0].value]"
+                            },
+                            {
+                              "name": "sb-root-connectionstring",
+                              "value": "[format('{0}', listKeys(format('{0}/AuthorizationRules/RootManageSharedAccessKey', resourceId('Microsoft.ServiceBus/namespaces', parameters('serviceBusName'))), '2021-11-01').primaryConnectionString)]"
+                            }
+                          ],
+                          "registries": [
+                            {
+                              "server": "[format('{0}.azurecr.io', parameters('containerRegistryName'))]",
+                              "username": "[parameters('containerRegistryName')]",
+                              "passwordSecretRef": "registry-password"
+                            }
+                          ]
+                        },
+                        "template": {
+                          "containers": [
+                            {
+                              "image": "[parameters('imageName')]",
+                              "name": "[parameters('name')]",
+                              "env": [
+                                {
+                                  "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                  "value": "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsName')), '2020-02-02').InstrumentationKey]"
+                                },
+                                {
+                                  "name": "FUNCTIONS_WORKER_RUNTIME",
+                                  "value": "dotnet-isolated"
+                                },
+                                {
+                                  "name": "connectionstring",
+                                  "value": "[format('{0}', listKeys(format('{0}/AuthorizationRules/RootManageSharedAccessKey', resourceId('Microsoft.ServiceBus/namespaces', parameters('serviceBusName'))), '2021-11-01').primaryConnectionString)]"
+                                },
+                                {
+                                  "name": "AZURE_COMMUNICATION_CONNECTION",
+                                  "value": "[format('{0}', listKeys(format('{0}', resourceId('Microsoft.Communication/communicationServices', parameters('communicationServicesName'))), '2023-03-31').primaryConnectionString)]"
+                                },
+                                {
+                                  "name": "AZURE_COMMUNICATION_SENDER_EMAIL",
+                                  "value": "[format('donotreply@{0}', parameters('fromSenderEmailDomain'))]"
+                                },
+                                {
+                                  "name": "ORDER_EMAIL_TEMPLATE_API",
+                                  "value": "[format('http://localhost:3500/v1.0/invoke/{0}/method/email/order', parameters('daprEmailRenderId'))]"
+                                }
+                              ]
+                            }
+                          ],
+                          "scale": {
+                            "minReplicas": 0,
+                            "maxReplicas": 10,
+                            "rules": [
+                              {
+                                "name": "sb-queue-based-scaling",
+                                "custom": {
+                                  "type": "azure-servicebus",
+                                  "metadata": {
+                                    "queueName": "order",
+                                    "messageCount": "5",
+                                    "connectionFromEnv": "sb-root-connectionstring"
+                                  },
+                                  "auth": [
+                                    {
+                                      "secretRef": "sb-root-connectionstring",
+                                      "triggerParameter": "connection"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'appinsights-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'containerapps-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'sb-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'shop-app-email-render-resources')]",
+                "[resourceId('Microsoft.Resources/deployments', 'shop-app-email-resources')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "loganalytics-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('logAnalyticName')]"
+                  },
+                  "location": {
+                    "value": "[parameters('location')]"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "8196765379913011184"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.OperationalInsights/workspaces",
+                      "apiVersion": "2021-06-01",
+                      "name": "[parameters('name')]",
+                      "location": "[parameters('location')]",
+                      "properties": {
+                        "retentionInDays": 30,
+                        "features": {
+                          "searchVersion": 1
+                        },
+                        "sku": {
+                          "name": "PerGB2018"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Resources/deployments",
+              "apiVersion": "2022-09-01",
+              "name": "shop-app-email-resources",
+              "properties": {
+                "expressionEvaluationOptions": {
+                  "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {
+                  "name": {
+                    "value": "[variables('communicationServicesName')]"
+                  },
+                  "dataLocation": {
+                    "value": "[parameters('dataLocation')]"
+                  },
+                  "commServiceEmailName": {
+                    "value": "[variables('communicationServicesEmailName')]"
+                  }
+                },
+                "template": {
+                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                  "contentVersion": "1.0.0.0",
+                  "metadata": {
+                    "_generator": {
+                      "name": "bicep",
+                      "version": "0.17.1.54307",
+                      "templateHash": "8090493196674981524"
+                    }
+                  },
+                  "parameters": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "commServiceEmailName": {
+                      "type": "string"
+                    },
+                    "dataLocation": {
+                      "type": "string"
+                    }
+                  },
+                  "resources": [
+                    {
+                      "type": "Microsoft.Communication/communicationServices",
+                      "apiVersion": "2023-03-31",
+                      "name": "[parameters('name')]",
+                      "location": "global",
+                      "properties": {
+                        "dataLocation": "[parameters('dataLocation')]",
+                        "linkedDomains": [
+                          "[resourceId('Microsoft.Communication/emailServices/domains', parameters('commServiceEmailName'), 'AzureManagedDomain')]"
+                        ]
+                      },
+                      "dependsOn": [
+                        "[resourceId('Microsoft.Communication/emailServices/domains', parameters('commServiceEmailName'), 'AzureManagedDomain')]"
+                      ]
+                    },
+                    {
+                      "type": "Microsoft.Communication/emailServices",
+                      "apiVersion": "2023-03-31",
+                      "name": "[parameters('commServiceEmailName')]",
+                      "location": "global",
+                      "properties": {
+                        "dataLocation": "[parameters('dataLocation')]"
+                      }
+                    },
+                    {
+                      "type": "Microsoft.Communication/emailServices/domains",
+                      "apiVersion": "2023-03-31",
+                      "name": "[format('{0}/{1}', parameters('commServiceEmailName'), 'AzureManagedDomain')]",
+                      "location": "global",
+                      "properties": {
+                        "domainManagement": "AzureManaged"
+                      },
+                      "dependsOn": [
+                        "[resourceId('Microsoft.Communication/emailServices', parameters('commServiceEmailName'))]"
+                      ]
+                    }
+                  ],
+                  "outputs": {
+                    "FromSenderDomain": {
+                      "type": "string",
+                      "value": "[reference(resourceId('Microsoft.Communication/emailServices/domains', parameters('commServiceEmailName'), 'AzureManagedDomain'), '2023-03-31').fromSenderDomain]"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', format('{0}-rg', parameters('name')))]"
+      ]
+    }
+  ]
+}
