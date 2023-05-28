@@ -28,7 +28,7 @@ jobs:
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v1
         with:
-          appSourcePath: ${{ github.workspace }}/backdround-jobs/order-email-trigger
+          appSourcePath: ${{ github.workspace }}/backdround-jobs/order-email-trigger/order-email-trigger
           registryUrl: ${{secrets.SHOPAPP_REGISTRY_URL}}
           registryUsername: ${{ secrets.SHOPAPP_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.SHOPAPP_REGISTRY_PASSWORD }}
