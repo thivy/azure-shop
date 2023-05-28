@@ -6,7 +6,7 @@ param tags object
 param servicebusName string
 param logAnalyticName string
 param appInsightsName string
-
+param containerAppShopAppUIName string
 
 resource servicebus 'Microsoft.ServiceBus/namespaces@2021-11-01' existing = {
   name: servicebusName
@@ -54,7 +54,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2022-03-01'
         }
       ]
       scopes: [
-        'shop-app-ui'
+        containerAppShopAppUIName
       ]
     }
   }

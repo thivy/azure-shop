@@ -29,6 +29,7 @@ module containerAppsResources 'resources/containerapps.bicep' = {
   params: {
     name: containerAppEnvName
     containerRegistryName: containerRegistryName
+    containerAppShopAppUIName: containerAppShopAppUIName
     servicebusName: serviceBusName
     logAnalyticName: logAnalyticName
     appInsightsName: appInsightsName
