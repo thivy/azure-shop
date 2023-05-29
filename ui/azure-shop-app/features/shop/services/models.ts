@@ -17,6 +17,7 @@ export interface IProduct {
   price: number;
   updated: string;
   featured: boolean;
+  vector_description: object;
 }
 
 export interface IVote {
